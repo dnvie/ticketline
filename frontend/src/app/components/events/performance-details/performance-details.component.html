@@ -1,0 +1,43 @@
+<div class="singleEventContainer">
+  <div class="singleEventHeader">
+    <h1>Event Details</h1>
+    <div *ngIf="authService.getUserRole() === 'ADMIN'" class="eventsHeaderButton editButton" routerLink="/events/edit/{{eventId}}">
+      <img id="editPng"
+           src="data:image/svg+xml;base64,PHN2ZyBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMTQuNzc2IDE4LjY4OSA3LjAxMi03LjAxMmMuMTMzLS4xMzMuMjE3LS4zMjkuMjE3LS41MzIgMC0uMTc5LS4wNjUtLjM2My0uMjE4LS41MTVsLTIuNDIzLTIuNDE1Yy0uMTQ0LS4xNDMtLjMzMy0uMjE1LS41MjItLjIxNXMtLjM3OC4wNzItLjUyMy4yMTVsLTcuMDI3IDYuOTk2Yy0uNDQyIDEuMzcxLTEuMTU4IDMuNTg2LTEuMjY1IDMuOTUyLS4xMjUuNDMzLjE5OS44MzQuNTczLjgzNC40MSAwIC42OTYtLjA5OSA0LjE3Ni0xLjMwOHptLTIuMjU4LTIuMzkyIDEuMTcgMS4xNzFjLS43MDQuMjMyLTEuMjc1LjQxOC0xLjcyOS41NjZ6bS45NjgtMS4xNTQgNS4zNTYtNS4zMzEgMS4zNDcgMS4zNDItNS4zNDYgNS4zNDd6bS00LjQ4Ni0xLjM5M2MwLS40MDItLjM1Ni0uNzUtLjc1LS43NS0yLjU2MSAwLTIuOTM5IDAtNS41IDAtLjM5NCAwLS43NS4zNDgtLjc1Ljc1cy4zNTYuNzUuNzUuNzVoNS41Yy4zOTQgMCAuNzUtLjM0OC43NS0uNzV6bTUtM2MwLS40MDItLjM1Ni0uNzUtLjc1LS43NS0yLjU2MSAwLTcuOTM5IDAtMTAuNSAwLS4zOTQgMC0uNzUuMzQ4LS43NS43NXMuMzU2Ljc1Ljc1Ljc1aDEwLjVjLjM5NCAwIC43NS0uMzQ4Ljc1LS43NXptMC0zYzAtLjQwMi0uMzU2LS43NS0uNzUtLjc1LTIuNTYxIDAtNy45MzkgMC0xMC41IDAtLjM5NCAwLS43NS4zNDgtLjc1Ljc1cy4zNTYuNzUuNzUuNzVoMTAuNWMuMzk0IDAgLjc1LS4zNDguNzUtLjc1em0wLTNjMC0uNDAyLS4zNTYtLjc1LS43NS0uNzUtMi41NjEgMC03LjkzOSAwLTEwLjUgMC0uMzk0IDAtLjc1LjM0OC0uNzUuNzVzLjM1Ni43NS43NS43NWgxMC41Yy4zOTQgMCAuNzUtLjM0OC43NS0uNzV6IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48L3N2Zz4="
+           alt="edit">Edit
+    </div>
+    <div routerLink="/events" class="eventsHeaderButton viewAllEventsButton">
+      <img
+        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjAgMjBoLTR2LTRoNHY0em0tNi0xMGgtNHY0aDR2LTR6bTYgMGgtNHY0aDR2LTR6bS0xMiA2aC00djRoNHYtNHptNiAwaC00djRoNHYtNHptLTYtNmgtNHY0aDR2LTR6bTE2LTh2MjJoLTI0di0yMmgzdjFjMCAxLjEwMy44OTcgMiAyIDJzMi0uODk3IDItMnYtMWgxMHYxYzAgMS4xMDMuODk3IDIgMiAyczItLjg5NyAyLTJ2LTFoM3ptLTIgNmgtMjB2MTRoMjB2LTE0em0tMi03YzAtLjU1Mi0uNDQ3LTEtMS0xcy0xIC40NDgtMSAxdjJjMCAuNTUyLjQ0NyAxIDEgMXMxLS40NDggMS0xdi0yem0tMTQgMmMwIC41NTItLjQ0NyAxLTEgMXMtMS0uNDQ4LTEtMXYtMmMwLS41NTIuNDQ3LTEgMS0xczEgLjQ0OCAxIDF2MnoiLz48L3N2Zz4="
+        alt="calender"> View All Events
+    </div>
+
+    <div class="singleEventContent">
+    <div class="eventElementTypeBadge">{{event.type[0] + event.type.toLowerCase().slice(1)}}</div>
+    <img
+      src="https://assets.website-files.com/5f7639e7223bc8080fc00171/63a0cd00c696c541bb606b33_placeholder-purple-v.png"
+      alt="event image">
+    <div class="eventDetails">
+      <h1>{{event.title}}</h1>
+      <div class="performerName"><span>Performer:</span>
+        <span *ngIf="event.performers.length <= 1">Performer:</span>
+        <span *ngIf="event.performers.length > 1">Performers:</span>
+        <em>{{formatPerformerNames(event.performers)}} </em>
+      </div>
+      <div *ngFor="let performance of event.performances" class="eventLabel">
+        <div class="date">
+          <div>{{formatDateTime(performance.startTime)}}</div>
+          <div id="time">{{formatTime(performance.startTime)}} - {{formatTime(performance.endTime)}}</div>
+        </div>
+        <div class="titleAndLocation">
+          <div class="title">{{event.title}} - {{performance.title}}</div>
+          <div class="location">{{performance.location.name}}, {{performance.location.postalCode}} {{performance.location.city}}, {{performance.location.street}}</div>
+        </div>
+        <div class="priceAndContinueButton">
+          <div class="price"><span>From</span> € 114,99</div>
+          <div class="eventsHeaderButton continueToEventOverviewButton" (click)="selectSeats(performance.id, performance.seatMap)">Continue</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

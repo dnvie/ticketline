@@ -1,0 +1,48 @@
+<div *ngIf="error" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Authentication problems!</strong> {{ errorMessage }}
+  <button type="button" (click)="vanishError()" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="container">
+  <div class="formContainer">
+    <h1 class="h1">Login</h1>
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="loginUser()" class="formInnerContainer">
+
+      <mat-form-field class="inputField" appearance="outline">
+        <mat-label>Username</mat-label>
+        <input type="text" name="username" formControlName="username" class="form-control" id="inputUsername"
+               aria-describedby="usernameHelp" placeholder="Enter username" matInput
+               required>
+        <mat-error>
+          Username is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="inputField" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password" name="password" formControlName="password" class="form-control" id="password" matInput
+               required>
+        <mat-error>
+          <span *ngIf="loginForm.value.password.length === 0">Password is <strong>required</strong></span>
+          <span *ngIf="loginForm.value.password.length > 0 && loginForm.value.password.length < 8">Password must be <strong>at least 8 characters long!</strong></span>
+        </mat-error>
+      </mat-form-field>
+    </form>
+
+    <div class="actionButtons">
+      <div class="actionButtonsGroup">
+        <div class="redirect">
+          Not registered yet? <span routerLink="/registration">Sign Up<span class="material-symbols-rounded">arrow_outward</span></span>
+        </div>
+      </div>
+      <button type="button" [disabled]="!loginForm.valid" (click)="loginUser()" class="button purple">Login<span class="material-symbols-rounded">login</span></button>
+    </div>
+
+    <div class="resetPasswordContainer">
+      <span href="#" routerLink="/password-reset">Forgot your password?</span>
+    </div>
+
+  </div>
+</div>

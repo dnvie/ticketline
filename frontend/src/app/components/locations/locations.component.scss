@@ -1,0 +1,213 @@
+.locationsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.locationsHeader {
+  margin-top: 70px;
+  display: flex;
+  width: 1092px;
+  height: fit-content;
+  justify-content: space-between;
+
+  h1 {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--purple);
+  }
+
+  .locationsHeaderButtons {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    align-items: center;
+  }
+
+  .locationsHeaderButton {
+    display: flex;
+    padding: 4px 12px 4px 12px;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .addLocationButton {
+    background-color: var(--adminButtonBackground);
+    color: var(--adminButtonText);
+    padding: 5px 12px 5px 12px !important;
+  }
+
+  .updateLocationButton {
+    color: var(--purple);
+    background-color: var(--purpleButtonBackground);
+    justify-content: center;
+    align-content: center;
+    margin-left: auto;
+    margin-right: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+
+
+  }
+}
+
+.addLocationButton:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+}
+
+.locationsGrid {
+  position: relative;
+  margin-top: 10px;
+  display: flex;
+  width: 1092px;
+  height: 850px;
+  min-height: 200px;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  flex-wrap: wrap;
+  row-gap: 30px;
+  column-gap: 20px;
+}
+
+.locationElement {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: fit-content;
+  width: 45%;
+
+  border-radius: 8px;
+  background-color: white;
+  transition: all 0.1s ease-in-out;
+  box-shadow: rgb(0, 0, 0, 0.025) 0 10px 20px 5px;
+
+  .locationElementTypeBadge {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 5px 15px 5px 15px;
+    border-radius: 8px;
+    backdrop-filter: blur(24px);
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+  }
+
+  h1 {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 20px;
+    margin: 28px 16px 0 16px;
+  }
+
+  h2 {
+    font-family: var(--sans-serif);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--purple);
+    margin: 5px 16px 0 16px;
+  }
+
+  p {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 14px;
+    margin: 20px 16px 5px 16px;
+    color: rgb(0, 0, 0, 0.6);
+
+    span {
+      font-weight: 300;
+      color: rgb(0, 0, 0, 0.8);
+    }
+  }
+
+  .locationElementDetailsButton {
+    display: flex;
+    width: fit-content;
+    padding-left: 1em;
+    padding-right: 1em;
+    height: 42px;
+    margin-right: 16px;
+    margin-top: 16px;
+    background-color: var(--purpleButtonBackground);
+    border-radius: 8px;
+    font-family: var(--sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--purple);
+    justify-content: center;
+    align-items: center;
+    transition: all 0.1s ease-in-out;
+
+    img {
+      width: 25px;
+      height: 25px;
+      margin-right: 10px;
+      align-self: center;
+    }
+  }
+}
+
+.locationElement:hover {
+  box-shadow: rgb(0, 0, 0, 0.075) 0 10px 20px 5px;
+}
+
+.locationElementDetailsButton:hover {
+  background-color: var(--purple) !important;
+  color: var(--purpleBackground) !important;
+  cursor: pointer;
+}
+
+.locationHeader {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+}
+
+.locationsFooter {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: transparent;
+  padding-top: 25px !important;
+  width: 1092px;
+}
+
+input::placeholder {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 4s steps(12, end) infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+input:focus::placeholder {
+  opacity: 1;
+}

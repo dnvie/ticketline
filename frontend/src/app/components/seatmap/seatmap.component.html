@@ -1,0 +1,163 @@
+<!--whole body-->
+<div class="seatmap" cdkDropListGroup id="seatmap">
+  <!--  create sector-->
+  <div class="createSector">
+    <h2>create sector</h2>
+    <form id="form" class="input-form" [formGroup]="sectorForm">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Sector Type</mat-label>
+        <mat-select [(value)]="selectedSectorType" formControlName="sectorType">
+          <mat-option value="regular">regular</mat-option>
+          <mat-option value="grandstandCurveLeft">grandstandCurveLeft</mat-option>
+          <mat-option value="grandstandCurveRight">grandstandCurveRight</mat-option>
+          <mat-option value="lodge">lodge</mat-option>
+        </mat-select>
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          Please choose a sector type
+        </mat-error>
+      </mat-form-field>
+      <div class="sectorAdjustments" *ngIf="selectedSectorType !== null">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Rows:</mat-label>
+          <input type="number" formControlName="sectorRows" matInput min="1"
+                 max="100">
+          <mat-error *ngIf="inputFormControl.hasError('required')">
+            Please enter a number of rows
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Columns:</mat-label>
+          <input type="number" formControlName="sectorColumns" matInput min="1"
+                 max="100">
+          <mat-error *ngIf="inputFormControl.hasError('required')">
+            Please enter a number of columns
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline" *ngIf="selectedSectorType === 'lodge'">
+          <mat-label>Lodge Size:</mat-label>
+          <input type="number" matInput formControlName="lodgeSize" min="1" max="100">
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Price-factor:</mat-label>
+          <input type="number" matInput formControlName="sectorPrice" min="1">
+          <mat-error *ngIf="inputFormControl.hasError('required')">
+            Please enter a price
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Name:</mat-label>
+          <input type="text" matInput formControlName="sectorName">
+          <mat-error *ngIf="inputFormControl.hasError('required')">
+            Please enter a name
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>standing</mat-label>
+          <mat-select [(value)]="isStanding" formControlName="isStanding">
+            <mat-option value="true">true</mat-option>
+            <mat-option value="false">false</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button (click)="addSectorToBeDragged(toBeDragged)" style="margin-top: 10px" class="dragButton button">Add
+          Sector
+        </button>
+        <button (click)="removeSectorFromDragZone(toBeDragged)" class="dragButton button"
+                style="background-color: var(--lightRed);color: var(--darkRed);">Delete from drag zone
+        </button>
+      </div>
+    </form>
+  </div>
+  <!--  drag from here zone-->
+  <div class="draggableSectors">
+    <h2>drag zone</h2>
+    <div cdkDropList [cdkDropListData]="toBeDragged"
+         (cdkDropListDropped)="drop($event)" class="dragSectorColumn" cdkDropListSortingDisabled id="dragSectorColumn">
+      <span style="visibility: hidden; height:5px; width: 100%">
+          /
+        </span>
+      <app-sector style="border: 2px #12071F solid" *ngFor="let sector of toBeDragged; let i = index"
+                  [attr.id]="'sector-' + i" cdkDrag
+                  [sectorToBeCreated]="sector" (cdkDragMoved)="checkIfAddRowOrColumn($event)">
+        <div *cdkDragPlaceholder>placed here</div>
+      </app-sector>
+    </div>
+  </div>
+  <!--  seatmap-->
+  <div id="outerContainer">
+    <div class="customizableSeatmap" id="customizableSeatmap">
+      <!--    seatmap name-->
+      <mat-form-field appearance="outline" [formGroup]="seatmapForm">
+        <mat-label>Seatmap Name</mat-label>
+        <input type="text" matInput formControlName="seatmapName">
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          Please enter a name
+        </mat-error>
+      </mat-form-field>
+
+      <!--seatmap droplists-->
+      <div cdkDropListOrientation="horizontal" *ngFor="let sectors of seatmap; let i = index;" cdkDropList
+           (cdkDropListDropped)="drop($event)" [cdkDropListData]="seatmap[i]" class="sectorRow">
+        <!-- sector in this droplist have id 20+index, so that they do not match with those in the drag zone (implying that there are never 20 sector in drag zone)-->
+        <div *ngFor="let sector of sectors; let j = index" [attr.id]="'sector-' + 2 + i +j" cdkDrag class="sector"
+             (cdkDragMoved)="checkIfAddRowOrColumn($event)">
+          <app-sector #secId (click)="toggleSectorModification(sector, secId)" [sectorToBeCreated]="sector"
+                      *ngIf="sector !== null && sector !== undefined"
+                      class="sectorComponent">
+            <div *cdkDragPlaceholder>placed here</div>
+          </app-sector>
+          <span *ngIf="sector === null" style="visibility: hidden" class="sectorComponent">
+          /
+        </span>
+        </div>
+      </div>
+      <button (click)="nameSeatmap()" style="margin-top: 10px" class="dragButton button">Save Seatmap</button>
+      <span style="text-align: left; color: #cccccc">click on sector to modify</span>
+      <br>
+      <span style="text-align: right; color: #cccccc">drag sector over border to add col/row</span>
+    </div>
+  </div>
+  <!--  modify sector-->
+  <div style="display:none" id="sectorModification">
+    <button id="rotate" class="dragButton button" (click)="rotate()" style="height: fit-content">Rotate</button>
+    <h3>add row/column</h3>
+    <div class="buttonCluster">
+      <div class="buttonRow">
+        <h3>left</h3>
+        <button id="increaseLeft" class="dragButton button" (click)="increaseLeft()">+</button>
+        <button id="decreaseLeft" class="dragButton button" (click)="decreaseLeft()">-</button>
+        <h3>right</h3>
+        <button id="increaseRight" class="dragButton button" (click)="increaseRight()">+</button>
+        <button id="decreaseRight" class="dragButton button" (click)="decreaseRight()">-</button>
+      </div>
+      <div class="buttonRow">
+        <h3>top</h3>
+        <button id="increaseTop" class="dragButton button" (click)="increaseTop()">+</button>
+        <button id="decreaseTop" class="dragButton button" (click)="decreaseTop()">-</button>
+        <h3>bottom</h3>
+        <button id="increaseBottom" class="dragButton button" (click)="increaseBottom()">+</button>
+        <button id="decreaseBottom" class="dragButton button" (click)="decreaseBottom()">-</button>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
+      <span style="color: #cccccc">remove seats by</span>
+      <span style="color: #cccccc">clicking on wanted seat</span>
+      <app-sector #secToModify [sectorToBeCreated]="sectorToBeModifiedCopy" [attr.id]="'modifySector-' + 1"
+                  [canDelete]="true" (refreshSector)="adaptSectorInSeatmap($event)"
+                  style="margin-bottom: 10px;padding: 5px; border: solid 1px black;"></app-sector>
+      <mat-slider id="scaleSlider" min="260" max="400" step="10"
+                  (change)="this.applySectorScaleTransform($event.target.value,'modifySector')">
+        <input matSliderThumb>
+      </mat-slider>
+      <label for="scaleSlider" style="margin-bottom: 3px; color: #cccccc">increase sector if necessary</label>
+      <button id="saveDeletions" class="dragButton button" (click)="saveDeletions()">Save</button>
+      <button id="reset" class="dragButton button" (click)="resetSectorModification()">Reset</button>
+      <button id="deleteSector" class="dragButton button"
+              style="background-color: var(--lightRed);color: var(--darkRed);"
+              (click)="removeSectorFromSeatmap()">Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+

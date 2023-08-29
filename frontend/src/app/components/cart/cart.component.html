@@ -1,0 +1,68 @@
+<ng-container #dynamicComponentContainer></ng-container>
+<div *ngIf="!checkoutViaReserve" class="singleEventContainer">
+    <div class="singleEventHeader">
+        <h1>Shopping Cart</h1>
+
+    </div>
+    <div *ngIf="shoppingCartEmpty" class="singleEventContainer">
+        <div>
+            <h1>Your shopping cart is empty</h1>
+        </div>
+    </div>
+    <div *ngIf="!shoppingCartEmpty" class="singleEventContent">
+      <div *ngFor="let event of ticketsByEventArray" class="singleEventContent">
+        <div class="eventDetails">
+          <h1>{{event.event}}</h1>
+          <div class="performerName">
+          </div>
+          <div *ngFor="let ticket of event.tickets" class="eventLabel">
+            <div class="dateContainer">
+              <div class="date">
+                <div>{{formatDateTime(ticket.forPerformance.startTime)}}</div>
+                <div id="time">{{formatSpecificTime(ticket.forPerformance.startTime)}}</div>
+              </div>
+            </div>
+            <div class="titleAndLocation">
+              <div class="titleAndLocationContainer">
+                <div class="title">{{ticket.forPerformance.title}}</div>
+                <div class="location">{{ticket.forPerformance.location.name}}
+                  , {{ticket.forPerformance.location.postalCode}} {{ticket.forPerformance.location.city}},
+                  {{ticket.forPerformance.location.street}}</div>
+              </div>
+            </div>
+            <div class="vertical-line"></div>
+            <div class="titleAndLocation">
+              <div class="seatContainer">
+                <div class="location">Sector: <span>{{this.ticket.seat.sector}}</span></div>
+                <div class="location">Seat: <span>{{getSeatName(this.ticket.seat)}}</span></div>
+              </div>
+            </div>
+            <div class = "vertical-line"></div>
+            <div class="priceAndContinueButton">
+              <div class="price"><span>Price: </span>{{formatPrice(ticket.price)}} €</div>
+              <div class="eventsHeaderButton deleteButton"
+                   (click)="removeFromCart(ticket)">
+                Remove<span class="material-symbols-rounded">delete</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="priceTotalAndButton">
+        <div class="totalPrice">Total Price: {{formatPrice(calculateTotalPrice())}} €</div>
+        <div class="checkout-btn-container">
+          <button class="button purple" (click)="reserveTickets()">
+            Reserve Tickets
+          </button>
+          <button routerLink="/cart/checkout" class="button darkPurple">
+            Proceed To Checkout
+          </button>
+        </div>
+        <div class="disclaimer">
+          <span class="material-symbols-rounded" style="margin-right: 8px;">info</span>
+          Reserved tickets can be collected from the box office up to 30 minutes before the start of the event.
+          If you do not pick up the tickets in time, the reservation will expire and the tickets will be offered
+          for sale again. You can pay for the tickets on site. You can also buy you reserved tickets online whenever you want.
+        </div>
+      </div>
+    </div>
+</div>

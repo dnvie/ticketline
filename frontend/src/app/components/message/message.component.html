@@ -1,0 +1,48 @@
+<div class="newsContainer">
+  <div class="newsHeader">
+    <h1>News</h1>
+    <div *ngIf="isLoggedIn()" class="newsHeaderButtons">
+      <div *ngIf="isAdmin()" routerLink="create" class="button admin">Add News Entry<span class="material-symbols-rounded starIcon">add</span></div>
+      <div *ngIf="!showAll" class="button purple" (click)="loadAllMessages()">Show all news<span class="material-symbols-rounded starIcon">visibility</span></div>
+      <div *ngIf="showAll" class="button purple" (click)="ngOnInit()">Hide seen news<span class="material-symbols-rounded starIcon">visibility_off</span></div>
+    </div>
+  </div>
+
+  <div *ngIf="!loaded" class="newsGrid">
+    <div class="newsElement" *ngFor="let skeleton of skeletons">
+      <div class="skeletonImage"></div>
+      <div class="skeletonH1"></div>
+      <div class="skeletonH2"></div>
+      <div class="skeletonSummary"></div>
+      <div class="newsElementDetailsButton skeletonButton"></div>
+    </div>
+  </div>
+
+  <div *ngIf="loaded" class="newsGrid">
+    <div class="newsElement" *ngFor="let message of getMessage()">
+      <img src="{{message.image}}" alt="News Image">
+      <h1>{{message.title}}</h1>
+      <h2>Posted on {{formatDate(message)}}</h2>
+      <p class="truncate">{{message.summary}}</p>
+      <div class="newsElementDetailsButton" [routerLink]="'details/' + message.id">Details</div>
+    </div>
+    <div *ngIf="isEmpty()" class="noNewsContainer">
+      <div class="noNews">
+        <div class="p p1">You are up-to-date!<span class="material-symbols-rounded">task_alt</span></div>
+        <div class="p p2">There are no unseen news.</div>
+        <div *ngIf="isLoggedIn()" class="button darkPurple noNewsButton" (click)="loadAllMessages()">Show all news<span class="material-symbols-rounded starIcon">visibility</span></div>
+      </div>
+    </div>
+  </div>
+
+  <mat-paginator class="paginator"
+                 [length]="totalPages"
+                 [pageSize]="pageSize"
+                 [pageIndex]="currentPage"
+                 [showFirstLastButtons]="true"
+                 [pageSizeOptions]="[12, 24, 48, 96]"
+                 (page)="onPageChange($event)"
+  ></mat-paginator>
+</div>
+
+

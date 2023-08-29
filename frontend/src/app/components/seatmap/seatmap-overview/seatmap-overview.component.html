@@ -1,0 +1,103 @@
+<div class="seatMapsContainer">
+  <div class="seatMapsHeader">
+    <h1>Seat Maps</h1>
+    <div class="seatMapsHeaderButtons">
+      <div *ngIf="authService.getUserRole() === 'ADMIN'" routerLink="create"
+           class="seatMapsHeaderButton addSeatMapButton">
+        Add Seat Map Entry <span class="material-symbols-rounded">event_seat</span>
+      </div>
+      <mat-slide-toggle [(ngModel)]="toggleChecked" (change)="filterSeatMaps()">Show unused seat maps</mat-slide-toggle>
+    </div>
+  </div>
+
+  <div *ngIf="!loaded" class="seatmapsSkeletonContainer">
+    <div *ngFor="let skeleton of skeletons" class="seatmapsSkeletonRow">
+      <div class="seatmapSkeletonItem">
+        <div class="seatmapSkeletonItemHeading"></div>
+        <div class="seatmapSkeletonItemMapContainer">
+          <div class="seatmapSkeletonItemMap"></div>
+        </div>
+      </div>
+      <div class="seatmapSkeletonInfo">
+        <div class="seatmapSkeletonInfoH1"></div>
+        <div class="seatmapSkeletonInfoH2"></div>
+        <div class="seatmapSkeletonInfoH3">
+          <div class="skeletonCircle circle1"></div>
+          <div class="skeletonCircle circle2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seatMapsList" id="seatMapsList">
+    <div class="row" style="visibility: hidden" id="seatMapsRow"
+         *ngFor="let fetchedSeatMap of fetchedSeatMapInstances">
+      <div class="col">
+        <mat-card class="seatMapCardPreview">
+          <mat-card-header>
+            <mat-card-title>Seat Map Preview</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="mat-card-content center-content">
+            <div id="outerContainer">
+              <div class="seatmap" id="seatMapPreview" #seatMapPreview>
+                <div *ngFor="let sectors of fetchedSeatMap.sectors" class="sectorRow">
+                  <div *ngFor="let sector of sectors" class="sector">
+                    <app-sector
+                      #secId
+                      *ngIf="sector"
+                      [sectorToBeCreated]="sector"
+                      class="sectorComponent"
+                    ></app-sector>
+                    <span *ngIf="sector === null" style="visibility: hidden" class="sectorComponent">
+                      /
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col fit-content">
+        <mat-card class="seatMapCard">
+          <mat-card-header>
+            <mat-card-title>Name: {{fetchedSeatMap.name}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="mat-card-content center-content">
+            <div class="seatMapDetails">
+              <strong>Facts: </strong>
+              <div class="seatMapDetailLabel">Sectors:
+                <span class="seatMapDetailValue">{{fetchedSeatMap.numberOfSectors}}</span>
+              </div>
+              <div class="seatMapDetailLabel">Capacity:
+                <span class="seatMapDetailValue">{{fetchedSeatMap.numberOfSeats}}</span>
+
+              </div>
+            </div>
+            <!---Load in the rendered preview of the seatMap here---->
+          </mat-card-content>
+          <div class="spacer"></div>
+          <mat-card-actions class="seatMapCardActions">
+            <button mat-fab *ngIf="authService.getUserRole() === 'ADMIN'"
+                    (click)="editSeatMap(fetchedSeatMap)" class="seatMapDetailsEditButton" id="edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-fab *ngIf="authService.getUserRole() === 'ADMIN'" (click)="deleteSeatMap(fetchedSeatMap)"
+                    class="seatMapDetailsDeleteButton"
+                    [ngClass]="{'isUsed': fetchedSeatMap.isUsed}" id="delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <mat-paginator class="seatMapFooter" *ngIf="seatMaps !== null && seatMaps !== undefined && seatMaps.length > 0"
+                 [length]="totalPages"
+                 [pageSize]="pageSize"
+                 [pageIndex]="currentPage"
+                 showFirstLastButtons="true"
+                 (page)="onPageChange($event)"></mat-paginator>
+</div>
+

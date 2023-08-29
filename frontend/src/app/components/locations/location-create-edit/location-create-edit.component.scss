@@ -1,0 +1,78 @@
+.locationInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 20px;
+  width: 1092px;
+  height: fit-content;
+  margin-top: 10px;
+
+  .input-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+  padding-bottom: 20px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  font-family: var(--sans-serif);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 6px 12px 6px 12px;
+  border-radius: 8px;
+  background-color: var(--purpleButtonBackground);
+  color: var(--purple);
+  transition: all 0.1s ease-in-out;
+}
+
+.deleteButton {
+  background-color: var(--lightRed) !important;
+  color: var(--darkRed) !important;
+  margin-bottom: 5px;
+}
+
+.saveButton {
+  background-color: var(--purple) !important;
+  color: var(--purpleBackground) !important;
+}
+
+.cancelButton {
+  background-color: var(--lightRed) !important;
+  color: var(--darkRed) !important;
+}
+
+.button:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+}
+
+.header {
+  margin-top: 70px;
+  display: flex;
+  width: 1092px;
+  height: fit-content;
+  justify-content: space-between;
+
+  h1 {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--purple);
+  }
+}
+
+.full-width {
+  margin-bottom: 8px;
+}
+

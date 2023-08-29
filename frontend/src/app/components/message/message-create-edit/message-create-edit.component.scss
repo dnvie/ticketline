@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.header {
+  margin-top: 70px;
+  display: flex;
+  width: 1092px;
+  height: fit-content;
+  justify-content: space-between;
+  h1 {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--purple);
+  }
+}
+
+.newsInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 20px;
+  width: 1092px;
+  height: fit-content;
+  margin-top: 10px;
+
+  .input-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.fileUpload {
+  display: flex;
+  width: 1092px;
+  flex-direction: column;
+  row-gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  label {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 16px;
+  }
+  input[type=file]::file-selector-button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--inputFieldBackground);
+    font-family: var(--sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.15s ease-in-out;
+  }
+}
+
+input[type=file]::file-selector-button:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+}
+
+input:is(:focus, :active) {
+  box-shadow: none !important;
+  filter: brightness(0.95);
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 1092px;
+  height: fit-content;
+  padding-bottom: 20px;
+}

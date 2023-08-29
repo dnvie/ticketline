@@ -1,0 +1,211 @@
+.resultHeading {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  border-radius: 8px;
+  width: fit-content;
+  font-family: var(--sans-serif);
+  font-weight: 500;
+  font-size: 14px;
+  padding-left: 4px;
+  padding-right: 7px;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+  .material-symbols-rounded{
+    margin: 0;
+  }
+}
+.wholeOrdersContainer {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 80px;
+}
+.typeContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+.confirm {
+  background-color: #C9FFC8;
+  color: #135512;
+}
+.reserved {
+  color: #564406;
+  background-color: #FFE896;
+}
+.canceled {
+  background-color: #FFD6D6;
+  color: #F91213;
+}
+.singleEventHeader {
+  margin-top: 70px;
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  justify-content: space-between;
+  margin-bottom: 1em;
+
+  h1 {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--purple);
+  }
+}
+.orderContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+.singleOrder{
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+.orderData{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  .orderHeading{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .orderContent{
+
+  }
+}
+.orderDataButtons {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+.ticketsContainer{
+  display: flex;
+  flex-direction: column;
+}
+.ticketsHeading{
+  max-width: 100%;
+  position: relative;
+  background-color: #eaeaea;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 4px;
+  padding-left: 10px;
+  .ticketsHeadingContent{
+    position: relative;
+    display: flex;
+    align-self: center;
+    height: fit-content;
+  }
+}
+.seat{
+  width: 5em;
+  margin-right: 80px;
+}
+.event{
+  width: 20em;
+  margin-right: 25px;
+}
+.date{
+  width:5em;
+  margin-right: 150px;
+}
+.price{
+  margin-right: 5px;
+}
+.singleTicket {
+  max-width: 100%;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 4px;
+  padding-left: 10px;
+
+  .ticketsHeadingContent {
+    display: flex;
+    align-self: center;
+    height: fit-content;
+  }
+}
+.eventNameAndLocation{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .location{
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: rgba(69, 69, 69, 0.8);
+  }
+}
+.showTicketsAndPrintButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-self: flex-end;
+  border-radius: 8px;
+  font-family: var(--sans-serif);
+  font-weight: 500;
+  font-size: 12px;
+  padding: 5px;
+  margin-right: 5px;
+  margin-left: auto; /* Added property */
+  height: fit-content;
+  width: 100%;
+
+  .material-symbols-rounded {
+    margin: 0;
+  }
+}
+.print{
+  background-color: var(--purple);
+  color: var(--purpleButtonBackground);
+}
+.expandTickets{
+  background-color: var(--purpleButtonBackground);
+  color: black;
+  justify-content: center;
+  width: fit-content;
+  align-self: center;
+}
+.buy{
+  background-color: var(--purpleButtonBackground);
+  color: black;
+}
+
+.showTicketsAndPrintButton:hover {
+  cursor: pointer;
+  filter: brightness(0.95);
+}
+.disclaimer {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 10px;
+  font-family: var(--sans-serif);
+  font-weight: 500;
+  font-size: 14px;
+  width: fit-content;
+  padding: 5px;
+  border-radius: 7px;
+  background-color: var(--lightyellow);
+  color: var(--darkyellow);
+  opacity: 0.8;
+}
+
+

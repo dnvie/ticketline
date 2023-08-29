@@ -1,0 +1,75 @@
+.confContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.confirmationBox {
+  display: flex;
+  padding: 5px 20px;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  width: fit-content;
+  max-width: 500px;
+  height: fit-content;
+  background-color: var(--eventBackground);
+  border-radius: 10px;
+  img {
+    margin-top: 50px;
+  }
+  .infoText{
+    display: flex;
+    justify-content: center;
+  }
+  .confirmedText{
+    margin-top: 30px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 20px;
+    color: #1F1F1F;
+  }
+  .findTickets {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+    color: rgba(69, 69, 69, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    column-gap: 10px;
+    .orderLink {
+      font-weight: 600;
+      text-decoration: underline;
+      margin-left: 5px;
+    }
+    .orderLink:hover {
+      filter: brightness(1);
+      cursor: pointer;
+    }
+  }
+}
+.buttonContainer{
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+  margin: 20px;
+}
+.applyButton {
+  background-color: var(--purple) !important;
+  color: var(--purpleBackground) !important;
+}
+.notAppliedButton {
+  background-color: var(--purpleButtonBackground) !important;
+  color: var(--purple) !important;
+}
+.notValidButton:hover {
+  filter: brightness(1);
+  cursor: auto;
+}

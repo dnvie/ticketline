@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="header">
+    <h1>{{heading}}</h1>
+    <div *ngIf="this.mode === 1" class="button delete" (click)="delete()">Delete News Entry<span class="material-symbols-rounded">delete</span></div>
+  </div>
+
+  <div class="newsInfo">
+    <form id="form" class="input-form" [formGroup]="newsForm">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input type="text" matInput formControlName="title" name="title">
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          Title is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Summary</mat-label>
+        <textarea matInput
+                  formControlName="summary"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"></textarea>
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          Summary is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Text</mat-label>
+        <textarea matInput
+                  formControlName="text"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"></textarea>
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          Text is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+
+    <div class="buttonContainer">
+      <div class="fileUpload">
+        <label for="coverImage">Upload Cover Image:</label>
+        <input type="file" id="coverImage" name="coverImage" class="file-upload" accept="image/png, image/jpeg" (change)="imageUploaded()">
+      </div>
+      <div class="button darkPurple" (click)="saveNews()">Save<span class="material-symbols-rounded">check</span></div>
+    </div>
+
+</div>

@@ -1,0 +1,44 @@
+<div class="locationsContainer">
+  <div class="locationsHeader">
+    <h1>Locations</h1>
+    <div class="locationsHeaderButtons">
+      <input class="locationsHeaderButton" matInput type="text" [(ngModel)]="searchText"
+             (input)="performSearch()" placeholder="Search">
+      <div *ngIf="authService.getUserRole() === 'ADMIN'" routerLink="create"
+           class="locationsHeaderButton addLocationButton">
+        Add Location Entry
+      </div>
+    </div>
+  </div>
+
+  <div class="locationsGrid">
+    <div class="locationElement"
+         *ngFor="let location of filteredLocations | paginate: { itemsPerPage: 6, currentPage: paginator?.pageIndex + 1 }">
+      <div class="locationHeader">
+        <h1>{{location.name}}</h1>
+        <div *ngIf="authService.getUserRole() === 'ADMIN'" class="locationElementDetailsButton"
+             routerLink="edit/{{location.id}}">
+          <img id="editPng"
+               src="data:image/svg+xml;base64,PHN2ZyBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjIiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJtMTQuNzc2IDE4LjY4OSA3LjAxMi03LjAxMmMuMTMzLS4xMzMuMjE3LS4zMjkuMjE3LS41MzIgMC0uMTc5LS4wNjUtLjM2My0uMjE4LS41MTVsLTIuNDIzLTIuNDE1Yy0uMTQ0LS4xNDMtLjMzMy0uMjE1LS41MjItLjIxNXMtLjM3OC4wNzItLjUyMy4yMTVsLTcuMDI3IDYuOTk2Yy0uNDQyIDEuMzcxLTEuMTU4IDMuNTg2LTEuMjY1IDMuOTUyLS4xMjUuNDMzLjE5OS44MzQuNTczLjgzNC40MSAwIC42OTYtLjA5OSA0LjE3Ni0xLjMwOHptLTIuMjU4LTIuMzkyIDEuMTcgMS4xNzFjLS43MDQuMjMyLTEuMjc1LjQxOC0xLjcyOS41NjZ6bS45NjgtMS4xNTQgNS4zNTYtNS4zMzEgMS4zNDcgMS4zNDItNS4zNDYgNS4zNDd6bS00LjQ4Ni0xLjM5M2MwLS40MDItLjM1Ni0uNzUtLjc1LS43NS0yLjU2MSAwLTIuOTM5IDAtNS41IDAtLjM5NCAwLS43NS4zNDgtLjc1Ljc1cy4zNTYuNzUuNzUuNzVoNS41Yy4zOTQgMCAuNzUtLjM0OC43NS0uNzV6bTUtM2MwLS40MDItLjM1Ni0uNzUtLjc1LS43NS0yLjU2MSAwLTcuOTM5IDAtMTAuNSAwLS4zOTQgMC0uNzUuMzQ4LS43NS43NXMuMzU2Ljc1Ljc1Ljc1aDEwLjVjLjM5NCAwIC43NS0uMzQ4Ljc1LS43NXptMC0zYzAtLjQwMi0uMzU2LS43NS0uNzUtLjc1LTIuNTYxIDAtNy45MzkgMC0xMC41IDAtLjM5NCAwLS43NS4zNDgtLjc1Ljc1cy4zNTYuNzUuNzUuNzVoMTAuNWMuMzk0IDAgLjc1LS4zNDguNzUtLjc1em0wLTNjMC0uNDAyLS4zNTYtLjc1LS43NS0uNzUtMi41NjEgMC03LjkzOSAwLTEwLjUgMC0uMzk0IDAtLjc1LjM0OC0uNzUuNzVzLjM1Ni43NS43NS43NWgxMC41Yy4zOTQgMCAuNzUtLjM0OC43NS0uNzV6IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48L3N2Zz4="
+               alt="edit">Edit
+        </div>
+      </div>
+      <p>Street:
+        <span> {{location.street}}</span>
+      </p>
+      <p>City:
+        <span> {{location.postalCode}} </span>
+        <span>{{location.city}}</span>
+      </p>
+      <p>Country:
+        <span> {{location.country}}</span>
+      </p>
+      <p>Description:
+        <span>{{location.description}}</span>
+      </p>
+    </div>
+  </div>
+  <mat-paginator class="locationsFooter" *ngIf="filteredLocations" [length]="filteredLocations.length"
+                 showFirstLastButtons="true"
+                 [pageSize]="6"></mat-paginator>
+</div>

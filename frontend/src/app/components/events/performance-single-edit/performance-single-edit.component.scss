@@ -1,0 +1,79 @@
+.header {
+  margin-top: 70px;
+  display: flex;
+  width: 1092px;
+  height: fit-content;
+  margin-bottom: 20px;
+  h1 {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--purple);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.performanceOuterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+  width: 1092px;
+  height: fit-content;
+  background-color: white;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.performance {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 10px;
+  height: fit-content;
+  width: 1000px;
+  .input-form {
+    margin-top: 35px;
+    width: 100%;
+    transition: all 0.15s;
+    .full-width {
+      width: 100%;
+    }
+  }
+}
+
+input:is(:focus, :active) {
+  box-shadow: none !important;
+  filter: brightness(0.95);
+}
+
+.datePicker {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 20px;
+  label {
+    flex-wrap: nowrap;
+    width: fit-content;
+    line-break: strict;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 1000px;
+  height: fit-content;
+  padding-bottom: 20px;
+}
+
+.button:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+}

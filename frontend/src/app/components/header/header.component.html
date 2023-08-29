@@ -1,0 +1,26 @@
+<nav>
+  <img src="/assets/Ticketline_Logo.svg" alt="Ticket Line Logo" routerLink="">
+  <div class="navButtons">
+    <div *ngIf="authService.isLoggedIn() && authService.isUserAdmin()" routerLink="/admin-panel" class="navButton adminButton">Admin Panel<span class="material-symbols-rounded">admin_panel_settings</span></div>
+    <div routerLink="/news" class="navButton" id="news">News<span class="material-symbols-rounded">newspaper</span></div>
+    <div routerLink="/events" class="navButton" id="events">Events<span class="material-symbols-rounded">event</span></div>
+    <div *ngIf="authService.isLoggedIn()" routerLink="/cart" class="navButton" id="cart">Cart {{shoppingCartCounter()}}<span class="material-symbols-rounded">shopping_cart</span></div>
+    <div routerLink="/events/search" class="navButton" id="search">Search<span class="material-symbols-rounded">search</span></div>
+    <div *ngIf="!authService.isLoggedIn()" routerLink="/login" class="navButton" id="login">Sign In<span class="material-symbols-rounded">login</span></div>
+    <div *ngIf="!authService.isLoggedIn()" routerLink="/registration" class="navButton" id="signup">Sign Up<span class="material-symbols-rounded">person_add</span></div>
+    <div *ngIf="authService.isLoggedIn()" class="profileIcon"><img src="/assets/Profile_Icon.svg" alt="">
+      <div class="profileDropDownContainer">
+        <div class="profileDropDown">
+          <div [routerLink]="['/view', authService.getTokenUserId()]" routerLinkActive=" active" class="profileDropDownButton">View Account<span class="material-symbols-rounded">visibility</span></div>
+          <div [routerLink]="['/edit', authService.getTokenUserId()]" routerLinkActive=" active" class="profileDropDownButton">Edit Account<span class="material-symbols-rounded">edit</span></div>
+          <div *ngIf="authService.isLoggedIn()" [routerLink]="['/orders', authService.getTokenUserId()]" routerLinkActive=" active" class="profileDropDownButton" id="orders">Orders<span class="material-symbols-rounded">order_approve</span></div>
+          <!-- Not finished yet; not a priority right now
+          <div *ngIf="!darkTheme" class="profileDropDownButton" (click)="switchTheme()">Dark Mode<span class="material-symbols-rounded">dark_mode</span></div>
+          <div *ngIf="darkTheme" class="profileDropDownButton" (click)="switchTheme()">Light Mode<span class="material-symbols-rounded">light_mode</span></div>
+          -->
+          <div class="profileDropDownButton logOutButton" routerLink="/" (click)="authService.logoutUser()">Sign Out<span class="material-symbols-rounded">logout</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

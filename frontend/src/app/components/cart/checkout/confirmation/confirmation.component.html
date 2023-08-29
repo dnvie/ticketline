@@ -1,0 +1,26 @@
+<div class="confContainer">
+  <div class="confirmationBox">
+    <img src="{{getImage()}}" alt="Order Confirmed">
+
+    <div class="confirmedText">
+      {{getMessage()}}
+    </div>
+    <div class="findTickets">
+      <div class="infoText">
+        <div *ngIf="mode===2">Refunded </div>Amount: € {{order.totalPrice.toFixed(2)}}
+      </div>
+      <div class="infoText">You can find your {{getFindMessage()}} here: <span (click)="goToOrders()" class="orderLink">
+          Orders</span></div>
+    </div>
+
+    <div class="buttonContainer">
+      <div (click)="navigateToEvents()" class="button notAppliedButton">
+        <span class="material-symbols-rounded" style="margin-right: 1px;">arrow_back</span>
+        Back to Events
+      </div>
+      <div class="button applyButton" (click)="printInvoice(order)">Print Invoice <span
+          class="material-symbols-rounded">description</span></div>
+    </div>
+  </div>
+</div>
+

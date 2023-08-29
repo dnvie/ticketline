@@ -1,0 +1,38 @@
+.adminPanelHeader {
+  margin-top: 70px;
+  display: flex;
+  width: 1092px;
+  height: fit-content;
+  justify-content: center;
+}
+
+.button-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wide-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px; /* Adjust the width as needed */
+  padding: 10px;
+  text-align: center;
+  background-color: var(--purpleButtonBackground);
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: var(--purple);
+  border-radius: 8px;
+  font-family: var(--sans-serif);
+  font-weight: 500;
+  font-size: 16px;
+  transition: all 0.1s ease-in-out;
+}
+
+.wide-button:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+}

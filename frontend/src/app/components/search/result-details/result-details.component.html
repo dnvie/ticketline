@@ -1,0 +1,16 @@
+<div class="eventsContainer">
+  <div class="eventsHeader">
+    <h1>Events {{correctText}}</h1>
+  </div>
+
+  <div class="eventsGrid">
+    <div class="eventElement" *ngFor="let event of events">
+      <div class="eventElementTypeBadge">{{event.type[0]+ event.type.toLowerCase().slice(1)}}</div>
+      <img src="{{event.image}}" alt="event image">
+      <h1>{{event.title}}</h1>
+      <h2 *ngIf="event.beginDate !== event.endDate">{{formatDate(event.beginDate)}} - {{formatDate(event.endDate)}}</h2>
+      <h2 *ngIf="event.beginDate === event.endDate">{{formatDate(event.beginDate)}}</h2>
+      <div class="eventElementDetailsButton" (click)="redirectToEventDetails(event.id)">Details</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div id="outer" class="d-flex justify-content-center align-items-center flex-column">
+  <table>
+    <tr *ngFor="let list of sectorToShow.seats">
+      <td *ngFor="let seat of list">
+        <div *ngIf="seat" class="seat" style="background-color: {{getSeatColour(seat)}}" (click)="reserveOrBuySeat(seat); deleteSeat(seat);">
+          {{sector.standingSector ? '' : seat.number}}
+        </div>
+        <div *ngIf="!seat" class="no-seat"></div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+

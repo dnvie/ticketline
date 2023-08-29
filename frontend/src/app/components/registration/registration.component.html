@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="formContainer">
+    <h1 class="h1">{{heading}}</h1>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" class="formInnerContainer">
+      <mat-form-field class="inputField" appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input type="text" id="first-name" name="first-name" placeholder="First name" matInput disabled="{{mode === 2}}" [class]="dynamicCssClassesForInput(firstNameModel)" [(ngModel)]="user.firstName" #firstNameModel="ngModel"
+               required>
+        <mat-error>
+          First name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="inputField" appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input type="text" id="last-name" name="last-name" placeholder="Last name" matInput disabled="{{mode === 2}}" [class]="dynamicCssClassesForInput(nameModel)" [(ngModel)]="user.lastName" #nameModel="ngModel"
+               required>
+        <mat-error>
+          Last name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="inputField" appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input type="number" id="phone-number" name="phone-number" placeholder="+43 123456789" matInput disabled="{{mode === 2}}" [(ngModel)]="user.phoneNumber"
+               required>
+        <mat-error>
+          Phone number is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="inputField" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="text" id="email" name="email" placeholder="user@example.net" matInput disabled="{{mode === 2}}" [(ngModel)]="user.email"
+               required>
+        <mat-error>
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isAdmin" class="inputFieldFull" appearance="outline">
+        <mat-label>Role</mat-label>
+        <select matNativeControl disabled="{{mode === 2}}" id="role" name="role" [(value)]="user.admin" required>
+          <option value="true">Admin</option>
+          <option value="false">User</option>
+        </select>
+        <mat-error>
+          Role is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="inputField" appearance="outline" *ngIf="!modeIsEditAndAdminAndNotOwnAccount">
+        <mat-label>{{passwordText}}</mat-label>
+        <input type="password" id="password1" name="password" placeholder="Password" matInput disabled="{{mode === 2}}" readonly="{{mode === 2 ? 'true' : 'false'}}" [(ngModel)]="user.password"
+               (ngModelChange)="passwordChanged = true" required="{{modeIsCreate}}">
+        <mat-error>
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="modeIsCreate || passwordChanged" class="inputField" appearance="outline">
+        <mat-label>Repeat {{passwordText}}</mat-label>
+        <input type="password" id="repeat-password1" name="repeat-password" placeholder="Repeat password" matInput disabled="{{mode === 2}}" [(ngModel)]="passwordRepeat"
+               required>
+        <mat-error>
+          Passwords do <strong>not match</strong>
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <div *ngIf="mode !== 2" class="actionButtons">
+      <div class="actionButtonsGroup">
+        <button type="button" class="button delete" *ngIf="!modeIsCreate" (click)="deleteAccount()">
+          Delete<span class="material-symbols-rounded">delete</span>
+        </button>
+        <button type="button" class="button edit" *ngIf="!modeIsCreate && isAdmin" (click)="enableAccount()">
+          {{user.enabled ? 'Lock' : 'Unlock'}}<span class="material-symbols-rounded">{{user.enabled ? 'lock' : 'lock_open'}}</span>
+        </button>
+        <div *ngIf="modeIsCreate && !isAdmin" class="redirect">
+          Already registered? <span routerLink="/login">Sign In<span class="material-symbols-rounded">arrow_outward</span></span>
+        </div>
+        <button type="button" class="button admin" *ngIf="!modeIsCreate && modeIsEditAndAdminAndNotOwnAccount" (click)="resetPassword()">
+          Send Password Reset Email<span class="material-symbols-rounded">send</span>
+        </button>
+      </div>
+      <button type="submit" class="button darkPurple" [disabled]="!form.valid" (click)="onSubmit(form)">
+        {{submitButtonText}}<span class="material-symbols-rounded">check</span>
+      </button>
+    </div>
+    <div *ngIf="mode === 2" class="actionButtons">
+      <button type="button" class="button purple" routerLink="/edit/{{user.id}}">
+        Edit Profile<span class="material-symbols-rounded">edit</span>
+      </button>
+    </div>
+  </div>
+</div>

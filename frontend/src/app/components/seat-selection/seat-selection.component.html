@@ -1,0 +1,49 @@
+<div class="seatSelectionContainer" xmlns="http://www.w3.org/1999/html">
+  <div class="seatSelectionHeader">
+    <h1 class="h1">Seat Selection</h1>
+  </div>
+
+  <div class="seatmap" id="seatmap">
+    <pan-zoom [config]="panzoomConfig">
+      <div class="grid" *ngFor="let sectors of seatmap?.sectors">
+        <div class="gridItem" *ngFor="let sector of sectors">
+          <h1 class="sectorName" *ngIf="sector">{{sector.name}}</h1>
+          <app-sector [sectorToBeCreated]="sector" [performanceId]="performanceId" [mode]="mode"
+                      [reservations]="reservations" (refreshReservations)="initLoad()"
+                      *ngIf="sector"></app-sector>
+          <app-sector [sectorToBeCreated]="emptySector" *ngIf="!sector"
+                      style="opacity: 0; user-select: none; pointer-events: none"></app-sector>
+        </div>
+      </div>
+    </pan-zoom>
+  </div>
+  <div id="selectedTickets">
+    <div id="ticketLegend">
+      <h2>Ticket Legend</h2>
+        <ul>
+          <li *ngFor="let legendElements of colorsAndPrices" class="legendElement" [ngStyle]="{'color': legendElements.color}">
+            <div class="legendPrice" style="color: #12071F">{{legendElements.price}} €</div>
+          </li>
+        </ul>
+    </div>
+    <h2 id="yourTickets">Your Tickets:</h2>
+    <p style="align-self: center">Number of selected tickets: {{currentReservations.length}}</p>
+    <div *ngIf="currentReservations.length === 0" style="text-align: center; font-weight: bold">No seats selected</div>
+    <div id="performanceName" *ngIf="currentReservations[0] !== null && currentReservations[0] !== undefined">
+      <h2 style="font-size: 20px;">Performance: {{currentReservations[0].forPerformance.title}}</h2>
+    </div>
+    <div *ngFor="let ticket of this.currentReservations">
+      <div *ngIf="ticket !== null && ticket !== undefined" class="individualTicket">
+        {{ticket.seat.sector}}
+        <br>
+        Seat: {{getSeatName(ticket.seat)}}
+        <br>
+        Price: {{ticket.price}} €
+      </div>
+    </div>
+    <button type="button" class="dragButton button" style="align-self: flex-end" routerLink="/cart">Cart</button>
+  </div>
+
+
+</div>
+

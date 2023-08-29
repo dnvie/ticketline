@@ -1,0 +1,96 @@
+<div class="container">
+  <div class="header">
+    <h1>Edit Performance</h1>
+  </div>
+  <div class="performanceOuterContainer">
+    <div class="performance" id="performanceContainer">
+      <form id="form" class="input-form" [formGroup]="performanceForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Title</mat-label>
+          <input type="text" matInput formControlName="title" name="title">
+          <mat-error *ngIf="inputFormControl.hasError('required')">
+            Title is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <div class="datePicker">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Start</mat-label>
+            <input type="datetime-local" matInput formControlName="startTime" name="startTime" min="0000-01-01T00:00"
+                   max="9999-12-31T23:59">
+            <mat-error *ngIf="inputFormControl.hasError('required')">
+              Start Time is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>End</mat-label>
+            <input type="datetime-local" matInput formControlName="endTime" name="endTime" min="0000-01-01T00:00"
+                   max="9999-12-31T23:59">
+            <mat-error *ngIf="inputFormControl.hasError('required')">
+              End Time is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Performer(s)</mat-label>
+          <mat-chip-grid #chipGrid aria-label="Enter keywords" [formControl]="formControl">
+            <mat-chip-row *ngFor="let keyword of keywords" (removed)="removeKeyword(keyword)">
+              {{keyword}}
+              <button matChipRemove aria-label="'remove ' + keyword">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input placeholder="New Performer (Press Enter to add)"
+                 [matChipInputFor]="chipGrid"
+                 (matChipInputTokenEnd)="add($event)"/>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Location</mat-label>
+          <input matInput
+                 aria-label="Location"
+                 [matAutocomplete]="auto"
+                 [formControl]="locationForm">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let location of filteredLocations | async" [value]="location.name"
+                        (click)="setLocation(location)">
+              <span>{{location.name}}</span> |
+              <small>{{location.street}}, {{location.postalCode}} {{location.city}}, {{location.country}}</small>
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="locationForm.hasError('required')">
+            Location is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Price</mat-label>
+          <input type="number" matInput formControlName="price" name="price">
+          <mat-error *ngIf="inputFormControl.hasError('required')">
+            Price is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>SeatMap</mat-label>
+          <mat-select formControlName="seatMap">
+            <mat-option *ngFor="let seatMap of seatMaps" [value]="seatMap.id">
+              <span>{{seatMap.name}}</span> |
+              <small>number of sectors: {{seatMap.numberOfSectors}}, capacity: {{seatMap.numberOfSeats}} </small></mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </form>
+    </div>
+
+    <div class="buttonContainer">
+      <div (click)="deletePerformance()" class="button delete">Delete Performance<span class="material-symbols-rounded">delete</span>
+      </div>
+      <div (click)="onSubmit()" class="button darkPurple">Save<span class="material-symbols-rounded">check</span></div>
+    </div>
+
+  </div>
+</div>
+

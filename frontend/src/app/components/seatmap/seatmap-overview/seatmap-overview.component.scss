@@ -1,0 +1,357 @@
+.seatMapsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.seatMapsHeader {
+  margin-top: 70px;
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  justify-content: space-between;
+
+  h1 {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--purple);
+  }
+
+  .seatMapsHeaderButtons {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    align-items: center;
+  }
+
+  .seatMapsHeaderButton {
+    display: flex;
+    padding: 4px 12px 4px 12px;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .addSeatMapButton {
+    background-color: var(--adminButtonBackground);
+    color: var(--adminButtonText);
+    padding: 5px 12px 5px 12px !important;
+  }
+
+  .updateSeatMapButton {
+    color: var(--purple);
+    background-color: var(--purpleButtonBackground);
+    justify-content: center;
+    align-content: center;
+    margin-left: auto;
+    margin-right: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+}
+
+.addSeatMapButton:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+}
+
+.seatMapsList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+
+.col {
+  margin-bottom: 20px;
+  height: 300px;
+  flex-grow: 1;
+}
+
+.fit-content {
+  flex-grow: 0;
+}
+
+.seatMapCard {
+  font-family: var(--sans-serif);
+  width: fit-content;
+  padding: 10px;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: none;
+  margin-bottom: 20px;
+  align-self: flex-end;
+}
+
+.seatMapCardPreview {
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 10px;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: none;
+  font-family: var(--sans-serif);
+}
+
+.seatMapCardActions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.seatMapDetailsEditButton {
+  display: flex;
+  margin-right: 1em;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+  color: var(--darkyellow);
+  background-color: var(--lightyellow);
+}
+
+.seatMapDetailsDeleteButton {
+  display: flex;
+  margin-right: 1em;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1em;
+  color: var(--darkRed);
+  background-color: var(--lightRed);
+}
+
+.isUsed {
+  background-color: var(--lightGrey);
+  color: var(--grey);
+}
+
+#outerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+}
+
+.seatmap {
+  max-width: 100%;
+  width: fit-content;
+  overflow-x: hidden;
+  border: solid 1px #ccc;
+  padding: 1em;
+}
+
+.sectorRow {
+  color: rgba(0, 0, 0, 0.87);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  cursor: grab;
+  background: white;
+  min-width: fit-content;
+  width: 100%;
+  height: fit-content;
+}
+.sector{
+  box-sizing: border-box;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 20px;
+  min-width: fit-content;
+  width: max(20px, 100%);
+  height: fit-content;
+}
+.seatMapDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: fit-content;
+  height: fit-content;
+  align-self: flex-start;
+
+  .seatMapDetailLabel {
+    font-weight: 500;
+    font-size: 14px;
+  }
+}
+
+.center-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.seatMapFooter {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: transparent;
+  padding-top: 25px !important;
+  width: 100%;
+}
+.seatmapsSkeletonContainer {
+  position: relative;
+  overflow: hidden;
+}
+
+.seatmapsSkeletonRow {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow: hidden;
+  margin-top: 30px;
+  gap: 30px;
+  .seatmapSkeletonItem {
+    position: relative;
+    overflow: hidden;
+    width: 1092px;
+    height: 100%;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .seatmapSkeletonItemHeading {
+      osition: relative;
+      overflow: hidden;
+      width: 165px;
+      height: 32px;
+      border-radius: 6px;
+      background-color: #f1f1f1;
+      margin-top: 30px;
+      margin-left: 30px;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: shimmerAnimation 1s infinite ease-in-out;
+      }
+    }
+    .seatmapSkeletonItemMapContainer {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 200%;
+        height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: shimmerAnimation 1s infinite ease-in-out;
+      }
+      .seatmapSkeletonItemMap {
+        width: 275px;
+        height: 90%;
+        border-radius: 6px;
+        background-color: #f1f1f1;
+      }
+    }
+  }
+  .seatmapSkeletonInfo {
+    width: 180px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    background-color: white;
+    gap: 25px;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200%;
+      height: 100%;
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmerAnimation 1s infinite ease-in-out;
+    }
+    .seatmapSkeletonInfoH1 {
+      margin-top: 20px;
+      width: 80%;
+      height: 100px;
+      border-radius: 6px;
+      background-color: #f1f1f1;
+    }
+    .seatmapSkeletonInfoH2 {
+      width: 80%;
+      height: 100px;
+      border-radius: 6px;
+      background-color: #f1f1f1;
+    }
+    .seatmapSkeletonInfoH3 {
+      width: 80%;
+      height: 100px;
+      border-radius: 6px;
+      background-color: transparent;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .skeletonCircle {
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        background-color: #f1f1f1;
+      }
+      .circle1 {
+        margin-left: 5px;
+      }
+      .circle2 {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+@keyframes shimmerAnimation {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

@@ -1,0 +1,42 @@
+<div class="singleEventContainer">
+  <div class="singleEventHeader">
+    <h1>Event Details</h1>
+    <div class="buttonContainer">
+      <div *ngIf="authService.isUserAdmin()" routerLink="/events/edit/{{eventId}}" class="button admin">Edit Event<span class="material-symbols-rounded">edit</span></div>
+      <div routerLink="/events" class="button purple">View All Events<span class="material-symbols-rounded">grid_view</span></div>
+    </div>
+  </div>
+  <div class="singleEventContent">
+    <div class="eventElementTypeBadge">{{event.type[0] + event.type.toLowerCase().slice(1)}}</div>
+    <img
+      src={{event.image}}
+      alt="event image">
+    <div class="eventDetails">
+      <h1>{{event.title}}</h1>
+      <div class="performerName">
+        <span *ngIf="event.performers.length === 1">Performer:</span>
+        <span *ngIf="event.performers.length > 1">Performers:</span>
+        <em>{{formatPerformerNames(event.performers)}} </em>
+      </div>
+      <div *ngFor="let performance of event.performances" class="eventLabel">
+        <div class="dateContainer">
+          <div class="date">
+            <div>{{formatDateTime(performance.startTime)}}</div>
+            <div id="time">{{formatSpecificTime(performance.startTime)}}
+              - {{formatSpecificTime(performance.endTime)}}</div>
+          </div>
+        </div>
+        <div class="titleAndLocation">
+          <div class="title">{{event.title}} - {{performance.title}}</div>
+          <div class="location">{{performance.location.name}}
+            , {{performance.location.postalCode}} {{performance.location.city}}, {{performance.location.street}}</div>
+        </div>
+        <div class="priceAndContinueButton">
+          <div class="price"><span>From</span> € {{formatPrice(performance)}}</div>
+          <div class="continueToEventOverviewButton button purple" (click)="selectSeats(performance.id, performance.seatMap)">Continue</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

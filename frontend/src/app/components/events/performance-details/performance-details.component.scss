@@ -1,0 +1,230 @@
+.singleEventContainer {
+  width: 100%;
+}
+
+.singleEventHeader {
+  margin-top: 70px;
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  justify-content: space-between;
+  margin-bottom: 1em;
+
+  img {
+    margin-right: 0.5em;
+    transform: scale(0.8);
+  }
+
+  h1 {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--purple);
+  }
+
+  .eventsHeaderButton {
+    display: flex;
+    height: 3em;
+    padding: 4px 12px 4px 12px;
+    justify-self: flex-end;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--sans-serif);
+    font-weight: 500;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .viewAllEventsButton {
+    color: var(--purple);
+    background-color: var(--purpleButtonBackground);
+  }
+  .editButton {
+    color: var(--purple);
+    background-color: var(--purpleButtonBackground);
+    justify-content: center;
+    align-content: center;
+    margin-left: auto;
+    margin-right: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+
+  #editPng {
+    transform: scale(1);
+    justify-self: center;
+    align-self: center;
+  }
+
+}
+
+
+
+.eventsHeaderButton:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+}
+
+.singleEventContent {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  height: fit-content;
+  border-radius: 8px;
+  background-color: white;
+  transition: all 0.1s ease-in-out;
+  box-shadow: rgb(0, 0, 0, 0.025) 0 10px 20px 5px;
+
+  .eventElementTypeBadge {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 1.5em;
+    padding: 5px 15px 5px 15px;
+    border-radius: 8px;
+    backdrop-filter: blur(24px);
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
+  img {
+    width: 100%;
+    height: 25em;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+  }
+
+}
+
+.eventDetails {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  margin: 1em 1em 1em 1.5em;
+
+  h1 {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 2.5em;
+    margin-top: 0.5em;
+  }
+
+
+  .performerName {
+    margin-bottom: 1em;
+    font-family: var(--sans-serif);
+    font-size: 1.25em;
+  }
+
+  span {
+    font-weight: bold;
+    font-style: normal;
+    margin-right: 0.5em;
+  }
+
+  em {
+    font-style: normal;
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.eventLabel {
+  background-color: #f0f0f0;
+  display: flex;
+  margin-right: 3em;
+  border-radius: 10px;
+  position: relative;
+  height: fit-content;
+  margin-bottom: 1em;
+  max-height: 5em;
+
+
+  .date {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: #d8d8d8;
+    font-family: var(--sans-serif);
+    font-weight: bold;
+    font-size: 1.25em;
+    color: #784ADE;
+    padding: 1em 0.5em 0.5em 0.5em;
+    justify-items: center;
+    align-items: center;
+    width: 7em;
+    height: fit-content;
+
+    #time {
+      font-family: var(--sans-serif);
+      font-size: 0.75em;
+      color: black;
+      font-weight: normal;
+    }
+  }
+
+  .titleAndLocation {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5em 0.5em 0.5em 1.5em;
+    justify-items: center;
+
+
+    .title {
+      font-family: var(--sans-serif);
+      font-weight: 600;
+      font-size: 1.5em;
+    }
+
+    .location {
+      font-family: var(--sans-serif);
+      font-size: 0.75em;
+      color: black;
+      font-weight: lighter;
+    }
+  }
+
+  .priceAndContinueButton {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    align-items: center;
+
+    .price {
+      display: flex;
+      align-items: center;
+      justify-items: flex-end;
+      margin-right: 1em;
+      font-weight: bold;
+      font-size: 1.25em;
+      color: rgba(0, 0, 0, 0.7);
+
+      span {
+        font-weight: normal;
+        margin-right: 0.5em;
+      }
+    }
+
+    .continueToEventOverviewButton {
+      display: flex;
+      width: 10em;
+      height: 2.5em;
+      margin: 20px 16px 16px 16px;
+      background-color: var(--purpleButtonBackground);
+      border-radius: 8px;
+      font-family: var(--sans-serif);
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--purple);
+      transition: all 0.1s ease-in-out;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+

@@ -1,0 +1,223 @@
+<ng-container #dynamicComponentContainer></ng-container>
+<div *ngIf="this.mode !== 1">
+  <div class="singleEventHeader">
+    <h1>Orders</h1>
+  </div>
+
+  <div *ngIf="!ordersExist">
+    <h3>No Orders found!</h3>
+  </div>
+  <div *ngIf="ordersExist" class="wholeOrdersContainer">
+    <div *ngIf="confirmedOrderExists" class="typeContainer">
+      <div class="resultHeading confirm">
+        <span class="material-symbols-rounded">check</span>Confirmed Orders
+      </div>
+      <div *ngFor="let order of confirmedOrders; let i = index" class="orderContainer">
+        <div class="singleOrder">
+          <div class="orderData">
+            <div class="orderDetails">
+              <div class="orderHeading">Order Number: {{order.orderNumber}}</div>
+              <div class="orderContent">Bought on: {{this.formatDateTime(order.orderDate)}}</div>
+              <div class="orderContent">Total Price: {{formatPrice(order.totalPrice)}}€</div>
+            </div>
+            <div class="orderDataButtons">
+              <div class="showTicketsAndPrintButton print" (click)="printInvoice(i,1)">
+                Print Invoice as PDF<span class="material-symbols-rounded">description</span>
+              </div>
+              <div *ngIf="!order.selectedTickets" class="showTicketsAndPrintButton canceled"
+                (click)="cancelAllConfirmedTickets(order)">
+                Cancel All Tickets of this order<span class="material-symbols-rounded">cancel</span>
+              </div>
+              <div *ngIf="order.selectedTickets" class="showTicketsAndPrintButton canceled"
+                (click)="cancelTickets(order, 'the selected')">
+                Cancel selected Tickets of this order<span class="material-symbols-rounded">cancel</span>
+              </div>
+            </div>
+          </div>
+          <div class="ticketsContainer">
+            <div class="ticketsHeading">
+              <div class="ticketsHeadingContent seat">Seat</div>
+              <div class="ticketsHeadingContent event">Event</div>
+              <div class="ticketsHeadingContent date">Date</div>
+              <div class="ticketsHeadingContent price">Price</div>
+              <div *ngIf="!order.showTickets" class="showTicketsAndPrintButton expandTickets"
+                (click)="collapseTickets(order)">Show Tickets<span class="material-symbols-rounded">expand_more</span>
+              </div>
+              <div *ngIf="order.showTickets" class="showTicketsAndPrintButton expandTickets"
+                (click)="collapseTickets(order)">Hide tickets <span class="material-symbols-rounded">expand_less</span>
+              </div>
+            </div>
+            <div *ngIf="order.showTickets">
+              <div *ngFor="let ticket of order.tickets; let ticketIndex = index" class="singleTicket">
+                <div class="ticketsHeadingContent seatAndSector seat">
+                  Sector: {{ticket.seat.sector}} <br />
+                  Seat: {{getSeatName(ticket.seat)}}
+                </div>
+                <div class="ticketsHeadingContent eventNameAndLocation event">
+                  <div class="eventName">
+                    {{ticket.forPerformance.event.title}} - {{ticket.forPerformance.title}}
+                  </div>
+                  <div class="location">
+                    <div>{{ticket.forPerformance.location.street}},</div>
+                    <div>{{ticket.forPerformance.location.postalCode}}, {{ticket.forPerformance.location.city}}</div>
+                  </div>
+                </div>
+                <div class="ticketsHeadingContent date" style="column-gap: 5px"><span class="material-symbols-rounded"
+                    style="margin-left: 0">calendar_month</span>{{formatDateTime(ticket.forPerformance.startTime)}}
+                </div>
+                <div class="ticketsHeadingContent" style="column-gap: 3px">{{formatPrice(ticket.price)}}€</div>
+                <div *ngIf="!ticket.reserved" class="showTicketsAndPrintButton expandTickets"
+                  (click)="selectConfirmedTicket(order, ticket)">Select<span
+                    class="material-symbols-rounded">check_box_outline_blank</span></div>
+                <div *ngIf="ticket.reserved" class="showTicketsAndPrintButton expandTickets"
+                  (click)="unselectConfirmedTicket(order, ticket)">Selected<span
+                    class="material-symbols-rounded">check_box</span></div>
+                <div class="showTicketsAndPrintButton expandTickets" (click)="printTicket(i,ticketIndex)">Print
+                  Ticket<span class="material-symbols-rounded">local_activity</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div *ngIf="this.reservedOrderExists" class="typeContainer">
+      <div class="resultHeading reserved">
+        <span class="material-symbols-rounded">event_available</span>Reservation Orders
+      </div>
+      <div class="disclaimer" style="margin-bottom: 12px;">
+        <span class="material-symbols-rounded" style="margin-right: 8px;">info</span>
+        Reserved tickets can be collected from the box office up to 30 minutes before the start of the event.
+        If you do not pick up the tickets in time, the reservation will expire and the tickets will be offered
+        for sale again. You can pay for the tickets on site. You can also buy you reserved tickets online whenever you want.
+      </div>
+      <div *ngFor="let order of reservedOrders; let i = index" class="orderContainer">
+        <div class="singleOrder">
+          <div class="orderData">
+            <div class="orderDetails">
+              <div class="orderHeading">Order Number: {{order.orderNumber}}</div>
+              <div class="orderContent">Reserved on: {{this.formatDateTime(order.orderDate)}}</div>
+              <div class="orderContent">Total Price: {{formatPrice(order.totalPrice)}}€</div>
+            </div>
+            <div class="orderDataButtons">
+              <div class="showTicketsAndPrintButton print" (click)="printInvoice(i,2)">
+                Print Invoice as PDF<span class="material-symbols-rounded">description</span>
+              </div>
+              <div *ngIf="!order.selectedTickets" class="showTicketsAndPrintButton buy" (click)="buyAllTickets(order)">
+                Buy All Tickets of this order<span class="material-symbols-rounded">shopping_bag</span>
+              </div>
+              <div *ngIf="order.selectedTickets" class="showTicketsAndPrintButton buy" (click)="buyTickets(order)">
+                Buy selected Tickets of this order<span class="material-symbols-rounded">shopping_bag</span>
+              </div>
+              <div *ngIf="!order.selectedTickets" class="showTicketsAndPrintButton canceled"
+                (click)="cancelAllReservatedTickets(order)">
+                Cancel All Tickets of this order<span class="material-symbols-rounded">cancel</span>
+              </div>
+              <div *ngIf="order.selectedTickets" class="showTicketsAndPrintButton canceled"
+                (click)="cancelTickets(order, 'the selected')">
+                Cancel selected Tickets of this order<span class="material-symbols-rounded">cancel</span>
+              </div>
+            </div>
+          </div>
+          <div class="ticketsContainer">
+            <div class="ticketsHeading">
+              <div class="ticketsHeadingContent seat">Seat</div>
+              <div class="ticketsHeadingContent event">Event</div>
+              <div class="ticketsHeadingContent date">Date</div>
+              <div class="ticketsHeadingContent price">Price</div>
+              <div *ngIf="!order.showTickets" class="showTicketsAndPrintButton expandTickets"
+                (click)="collapseTickets(order)">Show Tickets<span class="material-symbols-rounded">expand_more</span>
+              </div>
+              <div *ngIf="order.showTickets" class="showTicketsAndPrintButton expandTickets"
+                (click)="collapseTickets(order)">Hide tickets <span class="material-symbols-rounded">expand_less</span>
+              </div>
+            </div>
+            <div *ngIf="order.showTickets">
+              <div *ngFor="let ticket of order.tickets" class="singleTicket">
+                <div class="ticketsHeadingContent seatAndSector seat">
+                  Sector: {{ticket.seat.sector}} <br />
+                  Seat: {{getSeatName(ticket.seat)}}
+                </div>
+                <div class="ticketsHeadingContent eventNameAndLocation event">
+                  <div class="eventName">
+                    {{ticket.forPerformance.event.title}} - {{ticket.forPerformance.title}}
+                  </div>
+                  <div class="location">
+                    <div>{{ticket.forPerformance.location.street}},</div>
+                    <div>{{ticket.forPerformance.location.postalCode}}, {{ticket.forPerformance.location.city}}</div>
+                  </div>
+                </div>
+                <div class="ticketsHeadingContent date" style="column-gap: 5px"><span class="material-symbols-rounded"
+                    style="margin-left: 0">calendar_month</span>{{formatDateTime(ticket.forPerformance.startTime)}}
+                </div>
+                <div class="ticketsHeadingContent" style="column-gap: 3px">{{formatPrice(ticket.price)}}€</div>
+                <div *ngIf="ticket.reserved" class="showTicketsAndPrintButton expandTickets"
+                  (click)="selectReservationTicket(order, ticket)">Select<span
+                    class="material-symbols-rounded">check_box_outline_blank</span></div>
+                <div *ngIf="!ticket.reserved" class="showTicketsAndPrintButton expandTickets"
+                  (click)="unselectReservationTicket(order, ticket)">Selected<span
+                    class="material-symbols-rounded">check_box</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="this.canceledOrdersExists" class="typeContainer">
+      <div class="resultHeading canceled">
+        <span class="material-symbols-rounded">cancel</span>Cancelled Orders
+      </div>
+      <div *ngFor="let order of canceledOrders; let i = index" class="orderContainer">
+        <div class="singleOrder">
+          <div class="orderData">
+            <div class="orderDetails">
+              <div class="orderHeading">Order Number: {{order.orderNumber}}</div>
+              <div class="orderContent">Canceled on: {{this.formatDateTime(order.orderDate)}}</div>
+              <div class="orderContent">Total Refund: {{formatPrice(order.totalPrice)}}€</div>
+            </div>
+            <div class="orderDataButtons">
+              <div class="showTicketsAndPrintButton print" (click)="printInvoice(i,3)">
+                Print Confirmation as PDF<span class="material-symbols-rounded">description</span>
+              </div>
+            </div>
+          </div>
+          <div class="ticketsContainer">
+            <div class="ticketsHeading">
+              <div class="ticketsHeadingContent seat">Seat</div>
+              <div class="ticketsHeadingContent event">Event</div>
+              <div class="ticketsHeadingContent date">Date</div>
+              <div class="ticketsHeadingContent price">Price</div>
+              <div *ngIf="!order.showTickets" class="showTicketsAndPrintButton expandTickets"
+                (click)="collapseTickets(order)">Show Tickets<span class="material-symbols-rounded">expand_more</span>
+              </div>
+              <div *ngIf="order.showTickets" class="showTicketsAndPrintButton expandTickets"
+                (click)="collapseTickets(order)">Hide tickets <span class="material-symbols-rounded">expand_less</span>
+              </div>
+            </div>
+            <div *ngIf="order.showTickets">
+              <div *ngFor="let ticket of order.tickets" class="singleTicket">
+                <div class="ticketsHeadingContent seatAndSector seat">
+                  Sector: {{ticket.seat.sector}} <br />
+                  Seat: {{getSeatName(ticket.seat)}}
+                </div>
+                <div class="ticketsHeadingContent eventNameAndLocation event">
+                  <div class="eventName">
+                    {{ticket.forPerformance.event.title}} - {{ticket.forPerformance.title}}
+                  </div>
+                  <div class="location">
+                    <div>{{ticket.forPerformance.location.street}},</div>
+                    <div>{{ticket.forPerformance.location.postalCode}}, {{ticket.forPerformance.location.city}}</div>
+                  </div>
+                </div>
+                <div class="ticketsHeadingContent date" style="column-gap: 5px"><span class="material-symbols-rounded"
+                    style="margin-left: 0">calendar_month</span>{{formatDateTime(ticket.forPerformance.startTime)}}
+                </div>
+                <div class="ticketsHeadingContent" style="column-gap: 3px">{{formatPrice(ticket.price)}}€</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

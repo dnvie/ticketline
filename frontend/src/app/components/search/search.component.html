@@ -1,0 +1,179 @@
+<div class="searchContainer">
+  <div class="searchHeader">
+    <h1>Search</h1>
+  </div>
+  <div class="searchField">
+    <div class="inputBackground">
+      <div class="advancedSearchBar">
+        <input class="searchBar" type="text" placeholder="Search for Events, Artists, Performers, Locations, ..."  [(ngModel)]="this.search.searchBar" (ngModelChange)="onSearchDebounced()">
+        <div (click)="collapseAdvancedSearch()" class="navButton"><span class="material-symbols-rounded">tune</span></div>
+      </div>
+    </div>
+    <div *ngIf="!advancedSearchCollapsed" class = inputBackground>
+      <div  class="advancedSearchFields">
+        <div class="searchBox">
+          <div class="collapseSearchParams" (click)="collapseLocationParams()">
+            <div *ngIf="locationParamsCollapsed" class="navButton"><span class="material-symbols-rounded">chevron_right</span></div>
+            <div *ngIf="!locationParamsCollapsed" class="navButton"><span class="material-symbols-rounded">expand_more</span></div>
+            <span>Location</span>
+          </div>
+          <div *ngIf="!locationParamsCollapsed" class = searchRow>
+            <input class="advancedSearchbarInput" type="text" placeholder="Street" [(ngModel)]="this.search.street">
+            <input class="advancedSearchbarInput" type="text" placeholder="City" [(ngModel)]="this.search.city">
+          </div>
+          <div *ngIf="!locationParamsCollapsed" class = searchRow>
+            <input class="advancedSearchbarInput" type="text" placeholder="Country" [(ngModel)]="this.search.country">
+            <input class="advancedSearchbarInput" type="text" placeholder="ZIP Code" [(ngModel)]="this.search.zip">
+          </div>
+        </div>
+        <div class="searchBox">
+          <div class="collapseSearchParams" (click)="collapseEventParams()">
+            <div *ngIf="eventParamsCollapsed" class="navButton"><span class="material-symbols-rounded">chevron_right</span></div>
+            <div *ngIf="!eventParamsCollapsed" class="navButton"><span class="material-symbols-rounded">expand_more</span></div>
+            <span>Event</span>
+          </div>
+          <div class = searchRow *ngIf="!eventParamsCollapsed">
+            <div class="input-group">
+              <label for="type">Event Type</label>
+              <select class="advancedSearchbarInput" [(ngModel)]="this.search.type" id="type">
+                <option value=""></option>
+                <option value="concert">Concert</option>
+                <option value="festival">Festival</option>
+                <option value="theater">Theater</option>
+                <option value="opera">Opera</option>
+                <option value="musical">Musical</option>
+                <option value="movie">Movie</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="start">From</label>
+              <input class="advancedSearchbarInput" type="date" placeholder="start" id="start" [(ngModel)]="this.search.start" >
+            </div>
+            <div class="input-group">
+              <label for="end">To</label>
+              <input class="advancedSearchbarInput" type="date" placeholder="end" id = "end" [(ngModel)]="this.search.end">
+            </div>
+          </div>
+        </div>
+        <div class="searchBox">
+          <div class="collapseSearchParams" (click)="collapsePerformanceParams()">
+            <div *ngIf="performanceParamsCollapsed" class="navButton"><span class="material-symbols-rounded">chevron_right</span></div>
+            <div *ngIf="!performanceParamsCollapsed" class="navButton"><span class="material-symbols-rounded">expand_more</span></div>
+            <span>Performance</span>
+          </div>
+          <div class = searchRow *ngIf="!performanceParamsCollapsed">
+            <div class="input-group">
+              <label for="type">Event Name</label>
+              <input class="advancedSearchbarInput" type="text" placeholder="Event Name" [(ngModel)]="this.search.eventName">
+            </div>
+            <div class="input-group">
+              <label for="date">Date</label>
+              <input class="advancedSearchbarInput" type="date" placeholder="start" id="date" [(ngModel)]="this.search.performanceDate" >
+            </div>
+            <div class="input-group">
+              <label for="time">Time</label>
+              <input class="advancedSearchbarInput" type="time" placeholder="end" id = "time" [(ngModel)]="this.search.performanceTime">
+            </div>
+          </div>
+
+          <div class = searchRow *ngIf="!performanceParamsCollapsed">
+            <div class="input-group">
+              <label for="type">Room</label>
+              <input class="advancedSearchbarInput" type="text" placeholder="Room Name" [(ngModel)]="this.search.roomName">
+            </div>
+            <div class="input-group">
+              <label for="priceMin">Price-min</label>
+              <input class="advancedSearchbarInput" type="number" step="any" min="0" placeholder="min" id="priceMin" [(ngModel)]="this.search.minPrice" >
+            </div>
+            <div class="input-group">
+              <label for="priceMax">Price-max</label>
+              <input class="advancedSearchbarInput" type="number" step="any" min="0" placeholder="max" id = "priceMax" [(ngModel)]="this.search.maxPrice">
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="buttonContainer">
+        <div class="button clearButton" (click)="clearValues()">Clear Filter</div>
+        <div class="button applyButton" (click)="onSearch()">Apply Filter<span class="material-symbols-rounded">filter_alt</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="resultContainer">
+    <div *ngIf="mode===4" class="notFoundText">Sorry, no results were found for your search.</div>
+    <div class="selectWhatsShown">
+      <div *ngIf="events!==null && searched && mode===2" class="button applyButton" (click)="setModeToEvent()">Events ({{events.length}})</div>
+      <div *ngIf="events!==null && searched && mode!==2" class="button notAppliedButton" (click)="setModeToEvent()">Events ({{events.length}})</div>
+      <div *ngIf="artists!==null && searched&& mode===0" class="button applyButton" (click)="setModeToArtist()">Artists ({{artists.length}})</div>
+      <div *ngIf="artists!==null && searched&& mode!==0" class="button notAppliedButton" (click)="setModeToArtist()">Artists ({{artists.length}})</div>
+      <div *ngIf="locations!==null && searched && mode===1" class="button applyButton" (click)="setModeToLocation()">Locations ({{locations.length}})</div>
+      <div *ngIf="locations!==null && searched && mode!==1" class="button notAppliedButton" (click)="setModeToLocation()">Locations ({{locations.length}})</div>
+      <div *ngIf="performances!==null && searched && mode===3" class="button applyButton" (click)="setModeToPerformance()">Performances ({{performances.length}})</div>
+      <div *ngIf="performances!==null && searched && mode!==3" class="button notAppliedButton" (click)="setModeToPerformance()">Performances ({{performances.length}})</div>
+    </div>
+    <div class = eventContainer *ngIf="events !== null && mode===2">
+      <div class="eventsGrid" *ngIf="events !== null">
+        <div class="eventElement" *ngFor="let event of events">
+          <div class="eventElementTypeBadge">{{event.type[0]+ event.type.toLowerCase().slice(1)}}</div>
+          <img src="{{event.image}}" alt="event image">
+          <h1>{{event.title}}</h1>
+          <h2 *ngIf="event.beginDate !== event.endDate">{{formatDate(event.beginDate)}} - {{formatDate(event.endDate)}}</h2>
+          <h2 *ngIf="event.beginDate === event.endDate">{{formatDate(event.beginDate)}}</h2>
+          <div class="eventElementDetailsButton" [routerLink]="'/events/details/' + event.id">Details</div>
+        </div>
+      </div>
+    </div>
+    <div class = eventContainerTop10 *ngIf="topTen !== null && mode===5">
+      <h2>Top Ten Events</h2>
+      <div class="eventsGridTop10" *ngIf="topTen !== null">
+        <div class="eventItemTop10" *ngFor="let event of topTen; let i = index">
+          <div class="numberTop10">{{ i+1 }}</div>
+          <div class="eventInfoContainerTop10">
+            <span class="titleTop10">{{ event.title}}</span>
+            <span class="dateTop10">{{ formatDate(event.beginDate) }} - {{ formatDate(event.endDate) }}</span>
+          </div>
+          <div class="detailsButtonContainerTop10">
+            <div class="button purple buttonWide" routerLink="/events/details/{{ event.id }}">Details</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class = performanceContainer *ngIf="performances !== null && mode===3">
+      <div class="eventsGrid" *ngIf="performances !== null">
+        <div class="locationElement" *ngFor="let performance of performances">
+          <span class="locationName">{{performance.title}}</span>
+          <span class="locationSpan">Event: {{performance.event.title}}</span>
+          <span class="locationSpan">From: {{formatDateTime(performance.startTime)}}</span>
+          <span class="locationSpan">To: {{formatDateTime(performance.endTime)}}</span>
+          <span class="locationSpan">At: {{performance.location.name}}</span>
+          <span class="locationSpan">Price: from {{performance.price.toFixed(2)}}€</span>
+          <div class="eventsButton" routerLink="/seat-selection/buy/{{performance.id}}/{{performance.seatMap}}">Show tickets </div>
+        </div>
+      </div>
+    </div>
+    <div class = artistContainer *ngIf="artists !== null && mode===0">
+      <div class="eventsGrid">
+        <div class="artistElement" *ngFor="let artist of artists">
+          <span class="artistName">{{artist}}</span>
+          <div class="eventsButton" routerLink="/events/search/artist/{{artist}}">Show all Events of {{artist}}</div>
+        </div>
+      </div>
+
+    </div>
+    <div class = locationsContainer *ngIf="locations !== null && mode===1">
+      <div class="eventsGrid">
+        <div class="locationElement" *ngFor="let location of locations">
+          <span class="locationName">{{location.name}}</span>
+          <span class="locationSpan">Country: {{location.country}}</span>
+          <span class="locationSpan">City: {{location.city}}</span>
+          <span class="locationSpan">postal Code: {{location.postalCode}}</span>
+          <span class="locationSpan">Street: {{location.street}}</span>
+          <div class="eventsButton" routerLink="/events/search/location/{{location.name}}">Show all Events at location</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

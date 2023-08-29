@@ -1,0 +1,280 @@
+<ng-container #dynamicComponentContainer></ng-container>
+
+<div *ngIf="!(mode === 3)" class="checkoutContainer">
+  <div class="checkoutHeader">
+    <h1>Checkout</h1>
+  </div>
+  <div class="checkoutNavigation">
+    <div *ngIf="mode === 0" class="navSectionLeftSelected">Personal Information</div>
+    <div *ngIf="!(mode === 0)" class="navSectionLeft">Personal Information</div>
+    <div *ngIf="mode === 1" class="navSectionSelected">Payment</div>
+    <div *ngIf="!(mode === 1)" class="navSection">Payment</div>
+    <div *ngIf="mode === 2" class="navSectionRightSelected">Overview</div>
+    <div *ngIf="!(mode === 2)" class="navSectionRight">Overview</div>
+  </div>
+  <div *ngIf="mode === 0" class="personalInfo">
+    <div class="checkoutHeader">
+      <h2>Billing Address: </h2>
+    </div>
+    <form id="adressForm" class="input-form" [formGroup]="billingForm">
+      <div class="formRow">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>first Name</mat-label>
+          <input type="text" matInput formControlName="firstName" name="firstName">
+          <mat-error *ngIf="inputFormControl.hasError('required')">
+            First name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>last Name</mat-label>
+          <input type="text" matInput formControlName="lastName" name="lastName">
+          <mat-error *ngIf="inputFormControl.hasError('required')">
+            Last name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="formRow">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Country</mat-label>
+          <input type="text" matInput formControlName="country" name="country">
+          <mat-error *ngIf="inputFormControl.hasError('required')">
+            Country is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>City</mat-label>
+          <input type="text" matInput formControlName="city" name="city">
+          <mat-error *ngIf="inputFormControl.hasError('required')">
+            City is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="formRow">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>ZIP Code</mat-label>
+          <input type="text" matInput formControlName="zip" name="zip">
+          <mat-error *ngIf="inputFormControl.hasError('required')">
+            ZIP is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Street</mat-label>
+          <input type="text" matInput formControlName="street" name="street">
+          <mat-error *ngIf="inputFormControl.hasError('required')">
+            Street is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+    <div class="buttonContainer">
+      <div *ngIf="checkIfBillingAddressSet()" class="button applyButton" (click)="changeModeToPayment()">Proceed To Payment<span class="material-symbols-rounded">arrow_forward</span></div>
+      <div *ngIf="!checkIfBillingAddressSet()" class="button notValidButton">Proceed To Payment<span class="material-symbols-rounded">arrow_forward</span></div>
+
+    </div>
+  </div>
+
+  <div *ngIf="mode === 1" class="personalInfo">
+    <div class="checkoutHeader">
+      <h2>Select Payment Method: </h2>
+    </div>
+    <form id="paymentMethodForm" class="input-form" [formGroup]="billingForm">
+      <div class="formRow">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Payment Method</mat-label>
+          <mat-select formControlName="paymentMethod" name="paymentMethod">
+            <mat-option value="CREDITCARD" selected>Credit Card</mat-option>
+            <mat-option value="BANKTRANSFER" selected>Bank Transfer</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+    <div *ngIf="this.billingForm.get('paymentMethod').value === 'CREDITCARD'" class="personalInfo">
+      <div class="checkoutHeader">
+        <h2>Credit Card Information: </h2>
+      </div>
+      <form id="creditCardForm" class="input-form" [formGroup]="creditCardForm">
+        <div class="mat-hint">
+          <mat-hint *ngIf="getCartType(this.creditCardForm.value.cardNumber)">Type: {{getCartType(this.creditCardForm.value.cardNumber)}}</mat-hint>
+        </div>
+        <div class="formRow">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Card Number</mat-label>
+            <input type="text" matInput formControlName="cardNumber" name="cardNumber">
+            <mat-error *ngIf="inputFormControl.hasError('required')">
+              cardNumber is <strong>not valid</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="formRow">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Name of Card-Owner</mat-label>
+            <input type="text" matInput formControlName="cardName" name="cardName">
+            <mat-error *ngIf="inputFormControl.hasError('required')">
+              Name of Card-Owner is <strong>not valid</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="formRow">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Expiry Date (MM/YY)</mat-label>
+            <input type="text" matInput formControlName="expiryDate" name="expiryDate" pattern="^(0[1-9]|1[0-2])\/\d{2}$">
+            <mat-error *ngIf="inputFormControl.hasError('required')">
+              Expiry Date is <strong>not valid</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>CVC</mat-label>
+            <input type="text" matInput formControlName="cvc" name="cvc">
+            <mat-error *ngIf="inputFormControl.hasError('required')">
+              CVC is <strong>not valid</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="this.billingForm.get('paymentMethod').value === 'BANKTRANSFER'" class="personalInfo">
+      <div class="checkoutHeader">
+        <h2>Bank-Card Information: </h2>
+      </div>
+      <form id="bankCardForm" class="input-form" [formGroup]="bankTransferForm">
+        <div class="formRow">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>IBAN</mat-label>
+            <input type="text" matInput formControlName="iban" name="iban">
+            <mat-error *ngIf="inputFormControl.hasError('required')">
+              iban is <strong>not valid</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>BIC</mat-label>
+            <input type="text" matInput formControlName="bic" name="cic">
+            <mat-error *ngIf="inputFormControl.hasError('required')">
+              bic is <strong>not valid</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="formRow">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Name of Card-Owner</mat-label>
+            <input type="text" matInput formControlName="bankCardName" name="bankCardName">
+            <mat-error *ngIf="inputFormControl.hasError('required')">
+              Name of Card-Owner is <strong>not valid</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+    <div class="buttonContainer">
+      <div class="button notAppliedButton" (click)="changeModeToPersonalInfo()">
+        <span class="material-symbols-rounded" style="margin-right: 1px;">arrow_back</span>
+        Back To Personal Information
+      </div>
+      <div *ngIf="checkIfBillingAddressSet && (checkIfPaymentDetailsSetAndValidForCC() || checkIfPaymentDetailsSetAndValidForBT())" class="button applyButton"
+           (click)="changeModeToOverview()">Proceed To Overview<span class="material-symbols-rounded">arrow_forward</span>
+      </div>
+      <div *ngIf="!checkIfBillingAddressSet || !(checkIfPaymentDetailsSetAndValidForCC()||checkIfPaymentDetailsSetAndValidForBT())" class="button notValidButton"
+           >Proceed To Overview<span class="material-symbols-rounded">arrow_forward</span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="mode === 2" class="personalInfo">
+    <div class="checkoutHeader">
+      <h2>Order Overview: </h2>
+    </div>
+    <div class="summary">
+      <div class="itemsSummary">
+        Tickets:
+        <div *ngFor="let event of this.ticketsByEventArray" class="event">
+          <span>{{event.event}}</span>
+          <div *ngIf="!reservationsEmpty">
+            <div *ngFor="let ticket of event.tickets; let i = index">
+              <div *ngIf="!ticket.reserved">
+                <div class="performanceContainer">
+                  <div class="titleAndDateContainer">
+                    <span class="title">{{ticket.forPerformance.title}}</span>
+                    <span class="date" style="color: var(--purple)">{{formatDate(ticket)}}</span>
+                  </div>
+                  <div class="seatContainer">
+                    <span class="sectorAndSeat">Sector: <span class="seatInfo">{{ticket.seat.sector}}</span></span>
+                    <span class="sectorAndSeat">Seat: <span class="seatInfo">{{getSeatName(ticket.seat)}}</span></span>
+                  </div>
+                  <div class="priceContainer">
+                    <span class="price" >Price: <span style="color: var(--purple)">€{{formatPrice(ticket.price)}}</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="reservationsEmpty">
+            <div *ngFor="let ticket of event.tickets; let i = index">
+              <div class="performanceContainer">
+                <div class="titleAndDateContainer">
+                  <span class="title">{{ticket.forPerformance.title}}</span>
+                  <span class="date" style="color: var(--purple)">{{formatDate(ticket)}}</span>
+                </div>
+                <div class="seatContainer">
+                  <span class="sectorAndSeat">Sector: <span class="seatInfo">{{ticket.seat.sector}}</span></span>
+                  <span class="sectorAndSeat">Seat: <span class="seatInfo">{{getSeatName(ticket.seat)}}</span></span>
+                </div>
+                <div class="priceContainer">
+                  <span class="price" >Price: <span style="color: var(--purple)">€{{formatPrice(ticket.price)}}</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="totalPrice">
+          Total Price: {{formatPrice(this.calculateTotalPrice())}} €
+        </div>
+      </div>
+      <div class="shippingAndPayment">
+        <div class="personalInfoSummary">
+          Personal Information:
+          <br>
+          <span>{{this.billingForm.value.firstName}} {{this.billingForm.value.lastName}}</span>
+          <br>
+          Address:
+          <br>
+          <span>{{this.billingForm.value.country}}, {{this.billingForm.value.city}}</span>
+          <br>
+          <span>{{this.billingForm.value.zip}}, {{this.billingForm.value.street}}</span>
+        </div>
+        <div *ngIf="billingForm.value.paymentMethod === 'CREDITCARD'" class="paymentInfoSummary">
+          Payment Information:
+          <br>
+          <span>Payment Method: {{this.billingForm.value.paymentMethod}}</span>
+          <br>
+          <span>Card Number: {{this.creditCardForm.value.cardNumber}}</span>
+          <br>
+          <span>Card Name: {{this.creditCardForm.value.cardName}}</span>
+          <br>
+          <span>Expiry Date: {{this.creditCardForm.value.expiryDate}}, CVC: {{this.creditCardForm.value.cvc}}</span>
+        </div>
+        <div *ngIf="billingForm.value.paymentMethod === 'BANKTRANSFER'" class="paymentInfoSummary">
+          Payment Information:
+          <br>
+          <span>Payment Method: {{this.billingForm.value.paymentMethod}}</span>
+          <br>
+          <span>IBAN: {{this.bankTransferForm.value.iban}}</span>
+          <br>
+          <span>BIC: {{this.bankTransferForm.value.bic}}</span>
+          <br>
+          <span>Account owner: {{this.bankTransferForm.value.bankCardName}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="buttonContainer">
+      <div class="button notAppliedButton" (click)="changeModeToPayment()">
+        <span class="material-symbols-rounded" style="margin-right: 1px;">arrow_back</span>
+        Back To Payment Information
+      </div>
+      <div *ngIf="reservationsEmpty" (click)="buyTickets()" class="button applyButton">Buy Tickets <span class="material-symbols-rounded">shopping_bag</span></div>
+      <div *ngIf="!reservationsEmpty" (click)="buyAllReservatedTickets()" class="button applyButton">Buy Tickets <span class="material-symbols-rounded">shopping_bag</span></div>
+    </div>
+
+  </div>
+
+</div>
+

@@ -1,0 +1,105 @@
+.TopTenEventHeader {
+  margin-top: 70px;
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  justify-content: space-between;
+  margin-bottom: 2em;
+  h1 {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--purple);
+  }
+  .buttonContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
+}
+
+.selectionContainer {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.graphContainer {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.eventsGrid {
+  margin-top: 50px;
+  padding-bottom: 50px;
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 30px;
+  .eventItem {
+    width: 630px;
+    height: 90px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .number {
+      height: 100%;
+      aspect-ratio: 0.9/1;
+      background-color: #dfdfdf;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 35px;
+      font-weight: 600;
+      border-radius: 10px 0 0 10px;
+      color: #454545;
+    }
+    .eventInfoContainer {
+      width: 100%;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      row-gap: 3px;
+      justify-content: center;
+      padding: 10px 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      .title {
+        font-size: 20px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .date {
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--purple);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .detailsButtonContainer {
+      height: 100%;
+      aspect-ratio: 1.1/1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .buttonWide {
+        width: 100% !important;
+        margin-right: 15px;
+      }
+    }
+  }
+}

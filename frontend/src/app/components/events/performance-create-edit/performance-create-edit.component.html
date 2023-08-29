@@ -1,0 +1,100 @@
+<div class="performance" id="performanceContainer" [ngClass]="isDeleted ? 'deleted' : ''">
+  <div class="performanceHeader">
+    <h1 id="title">{{heading}}</h1>
+    <div class="buttons">
+      <div class="button" (click)="toggleCollapsed()">
+        <span *ngIf="collapsed" class="material-symbols-rounded icon-only">expand_more</span>
+        <span *ngIf="!collapsed" class="material-symbols-rounded icon-only">expand_less</span>
+      </div>
+      <div *ngIf="parent.performanceCount > 1" class="button deleteButton" (click)="delete()">
+        <span class="material-symbols-rounded icon-only">delete</span>
+      </div>
+      <div *ngIf="mode === 1" class="button editButton" routerLink="/performance/edit/{{this.performance.id}}">
+        <span class="material-symbols-rounded icon-only">edit</span>
+      </div>
+    </div>
+  </div>
+  <form id="form" class="input-form" [formGroup]="performanceForm" (ngSubmit)="onSubmit()"
+        [ngClass]="collapsed ? 'collapsed' : 'expanded'">
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Title</mat-label>
+      <input type="text" matInput formControlName="title" name="title">
+      <mat-error *ngIf="inputFormControl.hasError('required')">
+        Title is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="datePicker">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Start</mat-label>
+        <input type="datetime-local" matInput formControlName="startTime" name="startTime" min="0000-01-01T00:00"
+               max="9999-12-31T23:59">
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          Start Time is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>End</mat-label>
+        <input type="datetime-local" matInput formControlName="endTime" name="endTime" min="0000-01-01T00:00"
+               max="9999-12-31T23:59">
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          End Time is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Performer(s)</mat-label>
+      <mat-chip-grid #chipGrid aria-label="Enter keywords" [formControl]="formControl">
+        <mat-chip-row *ngFor="let keyword of keywords" (removed)="removeKeyword(keyword)">
+          {{keyword}}
+          <button matChipRemove aria-label="'remove ' + keyword">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      </mat-chip-grid>
+      <input placeholder="New Performer (Press Enter to add)"
+             [matChipInputFor]="chipGrid"
+             (matChipInputTokenEnd)="add($event)"/>
+      <mat-error *ngIf="inputFormControl.hasError('required')">
+        At least 1 Performer is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Location</mat-label>
+      <input matInput
+             aria-label="Location"
+             [matAutocomplete]="auto"
+             [formControl]="locationForm">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let location of filteredLocations | async" [value]="location.name"
+                    (click)="setLocation(location)">
+          <span>{{location.name}}</span> |
+          <small>{{location.street}}, {{location.postalCode}} {{location.city}}, {{location.country}}</small>
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="locationForm.hasError('required')">
+        Location is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Price</mat-label>
+      <input type="number" matInput formControlName="price" name="price">
+      <mat-error *ngIf="inputFormControl.hasError('required')">
+        Price is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Seat Map</mat-label>
+      <mat-select [formControl]="seatMapForm">
+        <mat-option *ngFor="let seatMap of seatMaps" [value]="seatMap.id" (click)="setSeatMap(seatMap.id)">
+          <span>{{seatMap.name}}</span> |
+          <small>number of sectors: {{seatMap.numberOfSectors}}, capacity: {{seatMap.numberOfSeats}} </small></mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+</div>

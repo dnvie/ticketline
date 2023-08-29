@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="header">
+    <h1>Add Location</h1>
+    <div *ngIf="this.mode === 1" class="button deleteButton" (click)="deleteLocation()">Delete Location<span
+      class="material-symbols-rounded">delete</span>
+    </div>
+  </div>
+  <div class="locationInfo">
+    <form id="form" class="input-form" [formGroup]="locationForm">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Name</mat-label>
+        <input type="text" matInput formControlName="name" name="name">
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Country</mat-label>
+        <input matInput
+               [matAutocomplete]="auto"
+               [formControl]="countryForm"
+               name="country">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let country of filteredCountries | async" [value]="country">
+            {{ country }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          Country is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>City</mat-label>
+        <input matInput formControlName="city" name="city">
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          City is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Postal Code</mat-label>
+        <input matInput formControlName="postalCode" name="postalCode">
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          Postal Code is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Street</mat-label>
+        <input matInput formControlName="street" name="street">
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          Street is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput
+                  formControlName="description"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"></textarea>
+      </mat-form-field>
+    </form>
+
+    <div class="buttonContainer">
+      <div routerLink="/locations" class="button cancelButton">Cancel<span class="material-symbols-rounded">close</span>
+      </div>
+      <div (click)="saveLocation()" class="button saveButton">Save<span class="material-symbols-rounded">check</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

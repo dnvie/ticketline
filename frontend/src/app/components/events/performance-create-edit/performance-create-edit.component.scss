@@ -1,0 +1,112 @@
+.performance {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 10px;
+  height: fit-content;
+  width: 1000px;
+  .performanceHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 25px;
+    h1 {
+      font-family: var(--sans-serif);
+      font-weight: 600;
+      font-size: 25px;
+      color: var(--purple);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .buttons {
+      display: flex;
+      flex-direction: row-reverse;
+      column-gap: 10px;
+      align-items: center;
+    }
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 5px 2px 5px;
+      border-radius: 5px;
+      background-color: var(--inputFieldBackground);
+    }
+    .deleteButton {
+      background-color: var(--lightRed);
+      color: var(--darkRed);
+    }
+    .editButton {
+      background-color: var(--lightyellow);
+      color: var(--darkyellow);
+    }
+    .button:hover {
+      filter: brightness(0.95);
+      cursor: pointer;
+    }
+    .icon-only {
+      margin: 0 !important;
+    }
+  }
+  .input-form {
+    width: 100%;
+    transition: all 0.15s;
+    .full-width {
+      width: 100%;
+    }
+  }
+}
+
+input:is(:focus, :active) {
+  box-shadow: none !important;
+  filter: brightness(0.95);
+}
+
+.datePicker {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 20px;
+  label {
+    flex-wrap: nowrap;
+    width: fit-content;
+    line-break: strict;
+  }
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  font-family: var(--sans-serif);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 6px 12px 6px 12px;
+  border-radius: 8px;
+  background-color: var(--purpleButtonBackground);
+  color: var(--purple);
+  border: none;
+  margin-bottom: 20px;
+  transition: all 0.1s ease-in-out;
+}
+
+.addButton:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+}
+
+.collapsed {
+  display: none;
+}
+
+.expanded {
+  display: initial;
+}
+
+.deleted {
+  display: none;
+  user-select: none;
+  pointer-events: none;
+}

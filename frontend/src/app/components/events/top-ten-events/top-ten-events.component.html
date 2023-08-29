@@ -1,0 +1,42 @@
+<div class="TopTenEventHeader">
+  <h1>Top 10 Events</h1>
+  <div class="buttonContainer">
+    <div routerLink="/events" class="button purple">View All Events<span class="material-symbols-rounded">grid_view</span></div>
+  </div>
+</div>
+<div class="selectionContainer">
+  <mat-form-field  class="inputFieldFull" appearance="outline">
+    <mat-label>Filter by Category</mat-label>
+    <select matNativeControl id="category" name="category" required #categorySelect>
+      <option value="ALL">All Categories</option>
+      <option value="CONCERT">Concert</option>
+      <option value="FESTIVAL">Festival</option>
+      <option value="THEATER">Theater</option>
+      <option value="OPERA">Opera</option>
+      <option value="MUSICAL">Musical</option>
+      <option value="MOVIE">Movie</option>
+      <option value="OTHER">Other</option>
+    </select>
+    <mat-error>
+      Category is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+</div>
+
+<div class="graphContainer">
+  <canvas #myChart style="background-color: #F5F3FE"></canvas>
+</div>
+
+
+<div class="eventsGrid">
+  <div class="eventItem" *ngFor="let event of events; let i = index">
+    <div class="number">{{ i+1 }}</div>
+    <div class="eventInfoContainer">
+      <span class="title">{{ event.title}}</span>
+      <span class="date">{{ formatDate(event.beginDate) }} - {{ formatDate(event.endDate) }}</span>
+    </div>
+    <div class="detailsButtonContainer">
+      <div class="button purple buttonWide" routerLink="/events/details/{{ event.id }}">Details</div>
+    </div>
+  </div>
+</div>

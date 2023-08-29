@@ -1,0 +1,62 @@
+.container {
+  margin-top: 150px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.formContainer {
+  width: 800px;
+  h1 {
+    padding-bottom: 25px;
+  }
+  .formInnerContainer {
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    column-gap: 30px;
+    row-gap: 5px;
+    .inputField {
+      width: 385px;
+    }
+    .inputFieldFull {
+      width: 385px;
+      margin-right: 415px;
+    }
+  }
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  .actionButtonsGroup {
+    display: flex;
+    column-gap: 15px;
+  }
+  .redirect {
+    font-family: var(--sans-serif);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--purple);
+    span {
+      font-weight: 600;
+    }
+    span:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.resetPasswordContainer {
+  span {
+    font-family: var(--sans-serif);
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--purple);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

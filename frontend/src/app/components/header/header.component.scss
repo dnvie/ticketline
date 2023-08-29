@@ -1,0 +1,118 @@
+nav {
+  display: flex;
+  width: 100%;
+  height: 70px;
+  background-color: var(--purpleBackground);
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: var(--sans-serif);
+  font-weight: 500;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 99;
+  img:hover {
+    cursor: pointer;
+  }
+}
+
+.navButtons {
+  display: flex;
+  flex-direction: row;
+  column-gap: 20px;
+  .navButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 6px 18px 6px 18px;
+    background-color: var(--purpleButtonBackground);
+    border-radius: 8px;
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--purple);
+    transition: all 0.1s ease-in-out;
+    img {
+      max-height: 15px;
+      margin-left: 5px;
+    }
+  }
+  .adminButton {
+    background-color: var(--adminButtonBackground) !important;
+    color: var(--adminButtonText) !important;
+  }
+}
+
+.navButtonActive {
+  background-color: var(--purple) !important;
+  color: var(--purpleBackground) !important;
+}
+
+.navButton:hover {
+  cursor: pointer;
+  filter: brightness(0.97);
+}
+
+.profileIcon:hover img{
+  filter: brightness(0.9);
+}
+
+.profileIcon:hover .profileDropDownContainer {
+  display: flex;
+  user-select: initial;
+  pointer-events: initial;
+}
+
+.profileDropDownContainer {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  width: 50px;
+  padding-top: 50px;
+  flex-direction: column;
+  align-items: flex-end;
+  display: none;
+  user-select: none;
+  pointer-events: none;
+  z-index: 98;
+}
+
+.profileDropDown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  column-gap: 10px;
+  width: 200px;
+  height: fit-content;
+  background-color: var(--eventBackground);
+  padding-top: 5px;
+  padding-bottom: 15px;
+  border-radius: 10px 0 10px 10px;
+  box-shadow: rgba(0, 0, 0, 0.07) 0 10px 20px;
+  .profileDropDownButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin-top: 10px;
+    padding: 6px 0 6px 0;
+    background-color: var(--purpleButtonBackground);
+    border-radius: 8px;
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--purple);
+    img {
+      max-height: 15px;
+      margin-left: 5px;
+    }
+  }
+  .logOutButton {
+    background-color: var(--lightRed) !important;
+    color: var(--darkRed) !important;
+  }
+  :hover {
+    cursor: pointer;
+    filter: brightness(0.97);
+  }
+}

@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="header">
+    <h1 class="h1">{{heading}}</h1>
+    <button *ngIf="mode === 0" routerLink="/locked-users-list" class="button purple">View Locked Accounts<span
+        class="material-symbols-rounded starIcon">lock</span></button>
+    <button *ngIf="mode === 1" routerLink="/users-list" class="button purple">View All Accounts<span
+        class="material-symbols-rounded starIcon">view_list</span></button>
+  </div>
+  <div class="header">
+    <input class="searchBar" type="text" placeholder="Search for a user using their email or username" [(ngModel)]="this.search"
+      (ngModelChange)="onSearchDebounced()">
+  </div>
+  <div class="userEntry" *ngFor="let user of users; let i = index">
+    <div class="userData">
+      <div class="username"><span>Username: </span>{{ users[i]?.firstName }} {{ users[i]?.lastName }}</div>
+      <div class="email"><span>E-Mail: </span>{{ users[i]?.email }}</div>
+    </div>
+    <div class="buttons">
+      <button [routerLink]="['/edit', user?.id]" routerLinkActive="active" class="button edit">Edit<span
+          class="material-symbols-rounded starIcon">edit</span></button>
+      <button (click)="enableAccount($event, users[i]?.id)" class="button purple">{{ users[i]?.enabled ? 'Lock' :
+        'Unlock' }}<span class="material-symbols-rounded starIcon">{{ users[i]?.enabled ? 'lock' : 'lock_open'
+          }}</span></button>
+    </div>
+  </div>
+</div>

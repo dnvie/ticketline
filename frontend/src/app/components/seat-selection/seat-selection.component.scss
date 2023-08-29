@@ -1,0 +1,107 @@
+.seatSelectionContainer {
+  margin-top: 70px;
+  display: flex;
+}
+
+.seatSelectionHeader {
+  display: flex;
+  width: 1092px;
+  height: fit-content;
+  justify-content: space-between;
+}
+
+.seatmap {
+  flex-direction: row;
+  position: absolute;
+  width: 1000px;
+  height: 70%;
+  overflow-x: scroll;
+  margin-top: 50px;
+  border: solid 1px #ccc;
+  padding: 0;
+}
+
+.seatmap::-webkit-scrollbar {
+  background-color: transparent;
+  height: 8px;
+  width: 8px;
+}
+
+.seatmap::-webkit-scrollbar-thumb {
+  background: #AAAAAAFF;
+  border-radius: 10px;
+}
+
+.sectorRow {
+  display: grid;
+  height: fit-content;
+  width: fit-content;
+  grid-auto-flow: column;
+
+  .sectorName {
+    font-family: var(--sans-serif);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--black);
+    margin: 1px;
+  }
+}
+.dragButton{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px 18px 6px 18px;
+  background-color: var(--purpleButtonBackground);
+  border-radius: 8px;
+  font-family: var(--sans-serif);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--purple);
+  margin-bottom: 5px;
+  margin-top: 5px;
+  width: fit-content;
+}
+
+#selectedTickets {
+  display: flex;
+  flex-direction: column;
+  border: grey 1px solid;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px;
+  background-color: white;
+  margin-top: 50px;
+  margin-bottom: 5rem;
+
+  h2 {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 34px;
+    padding: 5px;
+    color: var(--purple);
+  }
+}
+
+#yourTickets {
+  font-family: var(--sans-serif);
+  font-weight: 600;
+  font-size: 34px;
+  color: var(--purple);
+}
+
+.individualTicket {
+  width: 100%;
+  border-bottom: grey 1px solid;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+#performanceName{
+  text-align: center;
+  width: 100%;
+  max-width: 200px;
+  align-self: center;
+}
+#ticketLegend{
+  width: fit-content;
+  height: fit-content;
+}

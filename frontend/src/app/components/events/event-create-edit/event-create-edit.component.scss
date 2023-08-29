@@ -1,0 +1,159 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.header {
+  margin-top: 70px;
+  display: flex;
+  width: 1092px;
+  height: fit-content;
+  justify-content: space-between;
+  h1 {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--purple);
+  }
+}
+
+.eventInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 20px;
+  width: 1092px;
+  height: fit-content;
+  margin-top: 10px;
+  .input-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .performersInput {
+    display: flex;
+    flex-direction: row-reverse;
+    column-gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    .full-width {
+      width: 100%;
+    }
+    div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      white-space: nowrap;
+      height: fit-content;
+      font-family: var(--sans-serif);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 16px;
+      margin-bottom: 22px;
+      border-radius: 8px;
+      background-color: var(--purpleButtonBackground);
+      color: var(--purple);
+      transition: all 0.1s ease-in-out;
+    }
+  }
+  .performersList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 16px;
+    ::ng-deep .performerListEntry {
+      display: flex;
+      align-items: center;
+      padding: 2px 10px;
+      border-radius: 8px;
+      background-color: var(--purpleButtonBackground);
+      color: var(--purple);
+      font-family: var(--sans-serif);
+      font-weight: 400;
+      font-size: 14px;
+    }
+  }
+}
+
+::ng-deep .performerListEntry:hover{
+  cursor: default;
+  span {
+    cursor: pointer;
+  }
+}
+
+.fileUpload {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  bottom: 12px;
+  label {
+    font-family: var(--sans-serif);
+    font-weight: 600;
+    font-size: 16px;
+  }
+  input[type=file]::file-selector-button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--inputFieldBackground);
+    font-family: var(--sans-serif);
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.15s ease-in-out;
+  }
+}
+
+input[type=file]::file-selector-button:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+}
+
+input:is(:focus, :active) {
+  box-shadow: none !important;
+  filter: brightness(0.95);
+}
+
+.performanceOuterContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+  width: 1092px;
+  height: fit-content;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 1000px;
+  height: fit-content;
+  padding-bottom: 20px;
+}
+.deleteButton {
+  background-color: var(--lightRed) !important;
+  color: var(--darkRed) !important;
+  margin-bottom: 5px;
+}
+.saveButton {
+  background-color: var(--purple) !important;
+  color: var(--purpleBackground) !important;
+}
+
+.button:hover {
+  filter: brightness(0.95);
+  cursor: pointer;
+}
+

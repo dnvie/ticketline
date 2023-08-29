@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="header">
+    <h1>Add Event</h1>
+    <div *ngIf="this.mode === 1" class="button delete" (click)="deleteEvent()">Delete Event<span class="material-symbols-rounded">delete</span></div>
+  </div>
+
+  <div class="eventInfo">
+    <form id="form" class="input-form" [formGroup]="eventForm">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input type="text" matInput formControlName="title" name="title">
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          Title is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="type" name="type">
+          <mat-option value="CONCERT">Concert</mat-option>
+          <mat-option value="FESTIVAL">Festival</mat-option>
+          <mat-option value="THEATER">Performance</mat-option>
+          <mat-option value="OPERA">Opera</mat-option>
+          <mat-option value="MUSICAL">Musical</mat-option>
+          <mat-option value="MOVIE">Movie</mat-option>
+          <mat-option value="OTHER">Other</mat-option>
+        </mat-select>
+        <mat-error *ngIf="inputFormControl.hasError('required')">
+          Type is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+     </form>
+
+    <div class="fileUpload">
+      <label for="coverImage">Upload Cover Image:</label>
+      <input type="file" id="coverImage" name="coverImage" class="file-upload" accept="image/png, image/jpeg" (change)="imageUploaded()">
+    </div>
+
+    <div class="performanceOuterContainer">
+      <div class="performanceInnerContainer" id="performanceInnerContainer">
+        <ng-container #appendPerformances></ng-container>
+      </div>
+
+      <div class="buttonContainer">
+        <div (click)="addPerformance()" class="button purple">Add Performance<span class="material-symbols-rounded">add</span></div>
+        <div (click)="savePerformances()" class="button darkPurple">Save<span class="material-symbols-rounded">check</span></div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+

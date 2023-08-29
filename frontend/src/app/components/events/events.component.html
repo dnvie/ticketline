@@ -1,0 +1,41 @@
+<div class="eventsContainer">
+  <div class="eventsHeader">
+    <h1>Events</h1>
+    <div class="eventsHeaderButtons">
+      <div *ngIf="authService.isUserAdmin()" routerLink="create" class="button admin">Add Event Entry<span class="material-symbols-rounded starIcon">add</span></div>
+      <div class="button purple" routerLink="top10">Top 10 Events<span class="material-symbols-rounded starIcon">grade</span></div>
+    </div>
+  </div>
+
+  <div *ngIf="!loaded" class="eventsGrid">
+    <div class="eventElement" *ngFor="let skeleton of skeletons">
+      <div class="skeletonImage"></div>
+      <div class="skeletonH1"></div>
+      <div class="skeletonH2"></div>
+      <div class="eventElementDetailsButton skeletonButton"></div>
+    </div>
+  </div>
+
+  <div *ngIf="loaded" class="eventsGrid">
+    <div class="eventElement" *ngFor="let event of events">
+      <div class="eventElementTypeBadge">{{event.type[0]+ event.type.toLowerCase().slice(1)}}</div>
+      <img src="{{event.image}}" alt="event image">
+      <h1>{{event.title}}</h1>
+      <h2 *ngIf="event.beginDate !== event.endDate">{{formatDate(event.beginDate)}} - {{formatDate(event.endDate)}}</h2>
+      <h2 *ngIf="event.beginDate === event.endDate">{{formatDate(event.beginDate)}}</h2>
+      <div class="eventElementDetailsButton" [routerLink]="'/events/details/' + event.id">Details</div>
+    </div>
+  </div>
+
+  <mat-paginator class="paginator"
+                 [length]="totalPages"
+                 [pageSize]="pageSize"
+                 [pageIndex]="currentPage"
+                 [showFirstLastButtons]="true"
+                 [pageSizeOptions]="[12, 24, 48, 96]"
+                 (page)="onPageChange($event)"
+  ></mat-paginator>
+
+</div>
+
+

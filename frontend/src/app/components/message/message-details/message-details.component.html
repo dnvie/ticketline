@@ -1,0 +1,23 @@
+<div class="newsDetailsContainer">
+  <div class="newsDetailsHeader">
+    <h1>News Details</h1>
+    <div class="buttonContainer">
+      <div *ngIf="authService.isUserAdmin()" routerLink="/news/edit/{{messageId}}" class="button admin">Edit News Entry<span class="material-symbols-rounded">edit</span></div>
+      <div routerLink="/news" class="button purple">View All News<span class="material-symbols-rounded">grid_view</span></div>
+    </div>
+  </div>
+
+  <div class="newsDetailsContent">
+    <div class="detailsDateBadge"><span>Posted on</span> {{formatDate()}}</div>
+    <img
+      src="{{message.image}}"
+      alt="event image">
+    <div class="newsDetailsTitle">
+      <h1>{{message.title}}</h1>
+    </div>
+    <div class="newsDetailsText">
+      <p>{{message.text}}</p>
+    </div>
+  </div>
+
+</div>
