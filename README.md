@@ -1,6 +1,6 @@
 # ticketline
 
-This project was done as a group of 6 as part of a university project.
+This project was developed as a group of 6 as part of our university class "software engineering and project management".
 
 My parts were:
 - creating mockups (https://www.figma.com/file/lppZrc6H5TYGbkd0hrDSpl/SEPM-Mockups?type=design&node-id=0-1&mode=design)
